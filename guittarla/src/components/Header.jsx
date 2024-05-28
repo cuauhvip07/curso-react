@@ -2,8 +2,6 @@
 
 export default function Header() {
 
-  const name = "Cuauh guapo"
-
   return (
     <header className="py-5 header">
       <div className="container-xl">
