@@ -5,11 +5,7 @@ import { db } from './data/db'
 
 function App() {
     
-    const [data, setData] = useState([]);
-
-    useEffect(() => {
-        setData(db)
-    },[])
+    const [data, setData] = useState(db);
 
   return (
     <>
@@ -20,9 +16,14 @@ function App() {
             <h2 className="text-center">Nuestra Colección</h2>
 
             <div className="row mt-5">
-               
-                <Guittar/>
                 
+                {data.map(data => (
+                    <Guittar 
+                        key={data.id}
+                        price={100}
+                    />
+                ))}
+
             </div>
         </main>
 

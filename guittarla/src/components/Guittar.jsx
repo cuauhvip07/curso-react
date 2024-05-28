@@ -1,6 +1,7 @@
 
-
-export default function Guittar() {
+// En lugar de poner props.price con destructuring se pone solo price
+export default function Guittar({price}) {
+  console.log(price)
   return (
     <div className="col-md-6 col-lg-4 my-4 row align-items-center">
         <div className="col-4">
