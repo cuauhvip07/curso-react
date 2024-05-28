@@ -1,11 +1,21 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Header from "./components/Header"
 import Guittar from "./components/Guittar"
 
 function App() {
     // state 
     const [auth, setAuth ] = useState(false)
-    console.log(auth)
+    
+    useEffect(() => {
+       if(auth === true){
+        console.log('Esta en true')
+       }
+    },[auth])
+
+    setTimeout(() => {
+        setAuth(true)
+    }, 3000);
+
   return (
     <>
      <Header/>
