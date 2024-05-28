@@ -12,11 +12,14 @@ function App() {
 
         // Validar si el elemento existe
         const itemExists = cart.findIndex(guitar => guitar.id === item.id)
-        if(itemExists){
-
+        if(itemExists >= 0){ // Existe en el carrito
+            console.log('Ya existe')
+        }else{
+            item.quantity = 1
+            setCart([...cart, item])
         }
 
-        setCart(prevCart => [...prevCart, item])
+       
     }
 
   return (
