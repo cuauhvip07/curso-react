@@ -9,6 +9,13 @@ function App() {
     const [cart, setCart] = useState([]);
 
     function addToCart(item){
+
+        // Validar si el elemento existe
+        const itemExists = cart.findIndex(guitar => guitar.id === item.id)
+        if(itemExists){
+
+        }
+
         setCart(prevCart => [...prevCart, item])
     }
 
