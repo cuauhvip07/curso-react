@@ -1,20 +1,15 @@
 import { useEffect, useState } from 'react'
 import Header from "./components/Header"
 import Guittar from "./components/Guittar"
+import { db } from './data/db'
 
 function App() {
-    // state 
-    const [auth, setAuth ] = useState(false)
     
-    useEffect(() => {
-       if(auth === true){
-        console.log('Esta en true')
-       }
-    },[auth])
+    const [data, setData] = useState([]);
 
-    setTimeout(() => {
-        setAuth(true)
-    }, 3000);
+    useEffect(() => {
+        setData(db)
+    },[])
 
   return (
     <>
