@@ -1,8 +1,11 @@
+import { useState } from 'react'
 import Header from "./components/Header"
 import Guittar from "./components/Guittar"
 
 function App() {
-
+    // state 
+    const [auth, setAuth ] = useState(false)
+    console.log(auth)
   return (
     <>
      <Header/>
