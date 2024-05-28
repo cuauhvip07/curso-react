@@ -17,10 +17,10 @@ function App() {
 
             <div className="row mt-5">
                 
-                {data.map(data => (
+                {data.map(guitar => (
                     <Guittar 
-                        key={data.id}
-                        price={100}
+                        key={guitar.id}
+                        guitar={guitar}
                     />
                 ))}
 
