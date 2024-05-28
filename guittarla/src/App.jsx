@@ -10,10 +10,34 @@ function App() {
 
     function addToCart(item){
 
+        // Una manera 
+        // const existe = cart.some( carrito => carrito.id === item.id)
+
+        // if(existe){
+        //     const nuevo = cart.map( carrito => {
+        //         if(carrito.id === item.id){
+        //             carrito.quantity ++
+        //             return carrito
+        //         }else{
+        //             return carrito
+        //         }
+        //     })
+        //     setCart([...nuevo])
+        // }
+        // else{
+        //     item.quantity = 1
+        //     setCart([...cart,item])
+           
+        // }
+
         // Validar si el elemento existe
         const itemExists = cart.findIndex(guitar => guitar.id === item.id)
+
         if(itemExists >= 0){ // Existe en el carrito
-            console.log('Ya existe')
+            const updatedCart = [...cart]
+            console.log(itemExists)
+            updatedCart[itemExists].quantity++
+            setCart(updatedCart)
         }else{
             item.quantity = 1
             setCart([...cart, item])
