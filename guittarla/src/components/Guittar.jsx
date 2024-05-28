@@ -1,6 +1,6 @@
 
 // En lugar de poner props.price con destructuring se pone solo price
-export default function Guittar({guitar,setCart}) {
+export default function Guittar({guitar,addToCart}) {
 
   const {id,name,price, image, description} = guitar
 
@@ -18,8 +18,7 @@ export default function Guittar({guitar,setCart}) {
               type="button"
               className="btn btn-dark w-100"
               // Para que no se mande a llamr la funcion se le pone un call back en el onClick
-              // Se le pone prevCart por convencion y el setCart es el useState que mandamos a traer
-              onClick={() => setCart(prevCart => [...prevCart, guitar])}
+              onClick={() => addToCart(guitar)}
             >Agregar al Carrito</button>
         </div>
     </div>
