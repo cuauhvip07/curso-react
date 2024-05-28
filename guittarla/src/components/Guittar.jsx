@@ -1,7 +1,12 @@
 
 // En lugar de poner props.price con destructuring se pone solo price
 export default function Guittar({guitar}) {
+
   const {id,name,price, image, description} = guitar
+  const handleClick = guitar => {
+    console.log(guitar)
+  }
+
   return (
     <div className="col-md-6 col-lg-4 my-4 row align-items-center">
         <div className="col-4">
@@ -14,6 +19,8 @@ export default function Guittar({guitar}) {
             <button 
               type="button"
               className="btn btn-dark w-100"
+              // Para que no se mande a llamr la funcion se le pone un call back en el onClick
+              onClick={() => handleClick(guitar)}
             >Agregar al Carrito</button>
         </div>
     </div>
