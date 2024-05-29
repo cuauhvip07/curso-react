@@ -35,7 +35,6 @@ function App() {
 
         if(itemExists >= 0){ // Existe en el carrito
             const updatedCart = [...cart]
-            console.log(itemExists)
             updatedCart[itemExists].quantity++
             setCart(updatedCart)
         }else{
@@ -48,7 +47,10 @@ function App() {
 
   return (
     <>
-     <Header/>
+     <Header
+        
+        cart={cart}
+     />
         
 
         <main className="container-xl mt-5">
