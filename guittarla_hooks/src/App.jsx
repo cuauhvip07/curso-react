@@ -2,8 +2,11 @@ import { useEffect, useState } from 'react'
 import Header from "./components/Header"
 import Guittar from "./components/Guittar"
 import { db } from './data/db'
+import { useCart } from './hooks/useCart'
 
 function App() {
+
+    useCart()
 
     // Comprueba si hay valores en caso de que no, lo inicia con un arreglo vacio
     const initialCart = () => {
