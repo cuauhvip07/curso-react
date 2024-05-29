@@ -80,6 +80,10 @@ function App() {
         setCart(updateCart)
     }
 
+    function resetCar(){
+        setCart([])
+    }
+
   return (
     <>
      <Header
@@ -87,6 +91,7 @@ function App() {
         removeFromCart={removeFromCart}
         increaseQuantity={increaseQuantity}
         decreaseQuantity={decreaseQuantity}
+        resetCar={resetCar}
      />
         
 
