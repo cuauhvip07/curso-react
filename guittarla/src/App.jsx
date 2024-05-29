@@ -8,6 +8,8 @@ function App() {
     const [data, setData] = useState(db);
     const [cart, setCart] = useState([]);
 
+    const MAX_COUNT = 5;
+
     function addToCart(item){
 
         // Una manera 
@@ -49,11 +51,26 @@ function App() {
         setCart(prevCart => prevCart.filter( guitar => guitar.id !== id))
     }
 
+    function increaseQuantity(id){
+        const updatedCart = cart.map( item => {
+            if(item.id === id && item.quantity < MAX_COUNT){
+                return {
+                    // Retorna el item y por separado el valor del item
+                    ...item,
+                    quantity: item.quantity + 1
+                }
+            }
+            return item
+        })
+        setCart(updatedCart)
+    }
+
   return (
     <>
      <Header
         cart={cart}
         removeFromCart={removeFromCart}
+        increaseQuantity={increaseQuantity}
      />
         
 
