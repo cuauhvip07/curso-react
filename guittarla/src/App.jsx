@@ -11,27 +11,13 @@ function App() {
     const MAX_COUNT = 5;
     const MIN_COUNT = 1;
 
+    // Se ocupauseEffect ya que como el state es asincrono, ahora cada que cambie cart se ejecuta el codigo 
+    useEffect(() => {
+        localStorage.setItem('cart',JSON.stringify(cart));
+    },[cart])
+
     function addToCart(item){
 
-        // Una manera 
-        // const existe = cart.some( carrito => carrito.id === item.id)
-
-        // if(existe){
-        //     const nuevo = cart.map( carrito => {
-        //         if(carrito.id === item.id){
-        //             carrito.quantity ++
-        //             return carrito
-        //         }else{
-        //             return carrito
-        //         }
-        //     })
-        //     setCart([...nuevo])
-        // }
-        // else{
-        //     item.quantity = 1
-        //     setCart([...cart,item])
-           
-        // }
 
         // Validar si el elemento existe
         const itemExists = cart.findIndex(guitar => guitar.id === item.id)
@@ -83,6 +69,7 @@ function App() {
     function resetCar(){
         setCart([])
     }
+
 
   return (
     <>
