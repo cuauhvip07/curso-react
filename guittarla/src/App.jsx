@@ -4,9 +4,15 @@ import Guittar from "./components/Guittar"
 import { db } from './data/db'
 
 function App() {
-    
+
+    // Comprueba si hay valores en caso de que no, lo inicia con un arreglo vacio
+    const initialCart = () => {
+        const localStorageCart = localStorage.getItem('cart')
+        return localStorageCart ? JSON.parse(localStorageCart) : []
+    }
+
     const [data, setData] = useState(db);
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState(initialCart);
 
     const MAX_COUNT = 5;
     const MIN_COUNT = 1;
