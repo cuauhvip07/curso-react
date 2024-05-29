@@ -9,6 +9,7 @@ function App() {
     const [cart, setCart] = useState([]);
 
     const MAX_COUNT = 5;
+    const MIN_COUNT = 1;
 
     function addToCart(item){
 
@@ -65,12 +66,27 @@ function App() {
         setCart(updatedCart)
     }
 
+    function decreaseQuantity(id){
+        const updateCart = cart.map( item => {
+            if(item.id === id && item.quantity > MIN_COUNT){
+
+                return{
+                    ...item,
+                    quantity: item.quantity - 1
+                }
+            }
+            return item
+        })
+        setCart(updateCart)
+    }
+
   return (
     <>
      <Header
         cart={cart}
         removeFromCart={removeFromCart}
         increaseQuantity={increaseQuantity}
+        decreaseQuantity={decreaseQuantity}
      />
         
 
@@ -83,7 +99,6 @@ function App() {
                     <Guittar 
                         key={guitar.id}
                         guitar={guitar}
-                        setCart={setCart}
                         addToCart={addToCart}
                     />
                 ))}
