@@ -9,3 +9,7 @@ export type Guitar = {
     price: number;
 }
   
+
+export type CarItem =  Guitar &{
+    quantity: number;
+}
