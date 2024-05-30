@@ -7,8 +7,14 @@ type Guitar = {
   price: number;
 }
 
+type GuitarProps = {
+  guitar : Guitar,
+  addToCart: (item: Guitar) => void
+}
+
 // En lugar de poner props.price con destructuring se pone solo price
-export default function Guittar({guitar,addToCart} : {guitar : Guitar, addToCart: (item: Guitar) => void}) {
+// Tipo inlineType es el que esta comentado, el otro es typeSeparado
+export default function Guittar({guitar,addToCart} : GuitarProps) /* : {guitar : Guitar, addToCart: (item: Guitar) => void}) */ {
 
   const {name,price, image, description} = guitar
 
