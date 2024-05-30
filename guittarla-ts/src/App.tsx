@@ -1,5 +1,4 @@
 
-import { useState } from "react"
 import Header from "./components/Header"
 import Guittar from "./components/Guittar"
 import { useCart } from "./hooks/useCart"
@@ -8,7 +7,6 @@ function App() {
 
     const {data,cart,addToCart,removeFromCart,increaseQuantity,decreaseQuantity,resetCar,isEmpty,cartTotal} = useCart()
 
-    const [auth, setAuth] = useState(10);
 
   return (
     <>

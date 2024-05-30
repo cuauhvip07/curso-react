@@ -1,8 +1,16 @@
 
-// En lugar de poner props.price con destructuring se pone solo price
-export default function Guittar({guitar,addToCart}) {
+type Guitar = {
+  id: number;
+  name: string;
+  image: string;
+  description: string;
+  price: number;
+}
 
-  const {id,name,price, image, description} = guitar
+// En lugar de poner props.price con destructuring se pone solo price
+export default function Guittar({guitar,addToCart} : {guitar : Guitar, addToCart: (item: Guitar) => void}) {
+
+  const {name,price, image, description} = guitar
 
 
   return (
