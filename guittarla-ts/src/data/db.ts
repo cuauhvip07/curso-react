@@ -1,4 +1,16 @@
-export const db = [
+
+// Debemos de crear nuestros propios grupos de datos
+type Guitar = {
+    id: number;
+    name: string;
+    image: string;
+    description: string;
+    price: number;
+}
+
+//  Se le pasa el grupo de datos
+// [] son por que pasamos varios datos y se especifica que es un arreglo
+export const db : Guitar[] = [
     {
         id: 1,
         name: 'Lukather',
