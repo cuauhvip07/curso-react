@@ -6,7 +6,8 @@ import { useCart } from './hooks/useCart'
 
 function App() {
 
-    useCart()
+    const {auth} = useCart()
+    console.log(auth)
 
     // Comprueba si hay valores en caso de que no, lo inicia con un arreglo vacio
     const initialCart = () => {
