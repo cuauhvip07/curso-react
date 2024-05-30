@@ -2,11 +2,11 @@
 import { useEffect, useState } from 'react'
 import { db } from '../data/db'
 import { useMemo } from 'react'
-import type { Guitar } from '../types'
+import type { CarItem } from '../types'
 
 export const useCart = () => {
     // Comprueba si hay valores en caso de que no, lo inicia con un arreglo vacio
-    const initialCart = () : Guitar[] => {
+    const initialCart = () : CarItem[] => {
         const localStorageCart = localStorage.getItem('cart')
         return localStorageCart ? JSON.parse(localStorageCart) : []
     }

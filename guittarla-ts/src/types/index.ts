@@ -9,7 +9,17 @@ export type Guitar = {
     price: number;
 }
   
+// Utility types
 
-export type CarItem =  Guitar &{
+// Aqui se aplica la herencia completa
+export type CarItem =  Guitar & {
     quantity: number;
 }
+
+// Pick ayuda a elegir ciertos elementos de otro type
+// Primero el type que hereda y segundo los atributos queremos
+// export type CarItem = Pick<Guitar,'id' | 'name' | 'price'> & {
+//     quantity: number;
+// }
+
+// Omit te quita ciertos atributos
