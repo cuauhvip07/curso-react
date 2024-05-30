@@ -2,11 +2,11 @@
 import { useEffect, useState } from 'react'
 import { db } from '../data/db'
 import { useMemo } from 'react'
-import type { CarItem } from '../types'
+import type { Guitar, CartItem } from '../types'
 
 export const useCart = () => {
     // Comprueba si hay valores en caso de que no, lo inicia con un arreglo vacio
-    const initialCart = () : CarItem[] => {
+    const initialCart = () : CartItem[] => {
         const localStorageCart = localStorage.getItem('cart')
         return localStorageCart ? JSON.parse(localStorageCart) : []
     }
@@ -22,7 +22,7 @@ export const useCart = () => {
         localStorage.setItem('cart',JSON.stringify(cart));
     },[cart])
 
-    function addToCart(item){
+    function addToCart(item : Guitar){
 
 
         // Validar si el elemento existe
@@ -33,8 +33,8 @@ export const useCart = () => {
             updatedCart[itemExists].quantity++
             setCart(updatedCart)
         }else{
-            item.quantity = 1
-            setCart([...cart, item])
+            const newItem : CartItem = {...item, quantity : 1 }
+            setCart([...cart, newItem])
         }
 
        

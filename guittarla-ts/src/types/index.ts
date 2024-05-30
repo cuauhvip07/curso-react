@@ -12,7 +12,7 @@ export type Guitar = {
 // Utility types
 
 // Aqui se aplica la herencia completa
-export type CarItem =  Guitar & {
+export type CartItem =  Guitar & {
     quantity: number;
 }
 
