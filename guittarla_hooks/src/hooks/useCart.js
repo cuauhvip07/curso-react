@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react'
 import { db } from '../data/db'
+import { useMemo } from 'react'
 
 export const useCart = () => {
     // Comprueba si hay valores en caso de que no, lo inicia con un arreglo vacio
@@ -74,6 +75,12 @@ export const useCart = () => {
         setCart([])
     }
 
+    // Header
+    // State derivado 
+    const isEmpty = useMemo( () => cart.length === 0 , [cart])
+
+    const cartTotal = useMemo( () => cart.reduce((total, item) => total + (item.quantity * item.price), 0 ), [cart] )
+
 
     return {
         data,
@@ -83,5 +90,7 @@ export const useCart = () => {
         increaseQuantity,
         decreaseQuantity,
         resetCar,
+        isEmpty,
+        cartTotal,
     }
 }

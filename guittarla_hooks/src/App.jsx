@@ -4,7 +4,7 @@ import { useCart } from './hooks/useCart'
 
 function App() {
 
-    const {data,cart,addToCart,removeFromCart,increaseQuantity,decreaseQuantity,resetCar} = useCart()
+    const {data,cart,addToCart,removeFromCart,increaseQuantity,decreaseQuantity,resetCar,isEmpty,cartTotal} = useCart()
 
     
 
@@ -16,6 +16,8 @@ function App() {
         increaseQuantity={increaseQuantity}
         decreaseQuantity={decreaseQuantity}
         resetCar={resetCar}
+        isEmpty={isEmpty}
+        cartTotal={cartTotal}
      />
         
 

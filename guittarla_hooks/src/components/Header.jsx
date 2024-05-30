@@ -1,11 +1,7 @@
-import { useMemo } from 'react'
 
-export default function Header({cart,removeFromCart,increaseQuantity,decreaseQuantity,resetCar}) {
+export default function Header({cart,removeFromCart,increaseQuantity,decreaseQuantity,resetCar,isEmpty,cartTotal}) {
 
-    // State derivado 
-    const isEmpty = useMemo( () => cart.length === 0 , [cart])
-
-    const cartTotal = useMemo( () => cart.reduce((total, item) => total + (item.quantity * item.price), 0 ), [cart] )
+    // Si traemo el hook de useCart se crea una nueva instancia y hace que se desfase, por eso los valores se pasan mediante via props
 
   return (
     <header className="py-5 header">
