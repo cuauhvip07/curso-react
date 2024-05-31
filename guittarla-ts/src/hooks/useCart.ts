@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { db } from '../data/db'
 import { useMemo } from 'react'
-import type { Guitar, CartItem, GuitarId } from '../types'
+import type { Guitar, CartItem } from '../types'
 
 export const useCart = () => {
     // Comprueba si hay valores en caso de que no, lo inicia con un arreglo vacio

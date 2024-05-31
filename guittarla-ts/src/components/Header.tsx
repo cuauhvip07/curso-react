@@ -1,5 +1,17 @@
 
-export default function Header({cart,removeFromCart,increaseQuantity,decreaseQuantity,resetCar,isEmpty,cartTotal}) {
+import type { CartItem,Guitar } from "../types"
+
+type HeaderProps = {
+    cart: CartItem[];
+    removeFromCart: (id: Guitar['id']) => void;
+    increaseQuantity: (id: Guitar['id']) => void;
+    decreaseQuantity: (id: Guitar['id']) => void;
+    resetCar: () => void;
+    isEmpty: boolean;
+    cartTotal: number;
+}
+
+export default function Header({cart,removeFromCart,increaseQuantity,decreaseQuantity,resetCar,isEmpty,cartTotal}: HeaderProps) {
 
     // Si traemo el hook de useCart se crea una nueva instancia y hace que se desfase, por eso los valores se pasan mediante via props
 
