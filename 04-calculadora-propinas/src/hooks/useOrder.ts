@@ -6,7 +6,11 @@ export default function useOrder(){
 
     const {order, setOrder} = useState<OrderItem[]>([]);
 
-    return{
+    const addItem = () => {
+        console.log('Hola')
+    }
 
+    return{
+        addItem
     }
 }
