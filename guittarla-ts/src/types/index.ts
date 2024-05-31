@@ -16,6 +16,7 @@ export type CartItem =  Guitar & {
     quantity: number;
 }
 
+
 // Pick ayuda a elegir ciertos elementos de otro type
 // Primero el type que hereda y segundo los atributos queremos
 // export type CarItem = Pick<Guitar,'id' | 'name' | 'price'> & {
@@ -23,3 +24,6 @@ export type CartItem =  Guitar & {
 // }
 
 // Omit te quita ciertos atributos
+
+// Loock up solo le puedes passar un parametro cual copiar
+// export type GuitarId = Guitar['id'];
