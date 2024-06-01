@@ -1,8 +1,16 @@
+import { useMemo } from "react"
+import { OrderItem } from "../types"
+import { formartCurrency } from "../helpers"
+
+type OrderTotalsProps = {
+    order: OrderItem[]
+}
 
 
+export default function OrderTotals({order}: OrderTotalsProps) {
 
+    const subtotalAmount = useMemo(() => order.reduce((total, item) => total + (item.quantity * item.price),0),[order])
 
-export default function OrderTotals() {
   return (
     <>
 
@@ -10,7 +18,7 @@ export default function OrderTotals() {
         <h2 className=" font-black text-2xl">Totales y Propinas</h2>
         <p>
             Subtotal a pagar: {''}
-            <span className=" font-bold">$0</span>
+            <span className=" font-bold">{formartCurrency(subtotalAmount)}</span>
         </p>
 
         <p>
