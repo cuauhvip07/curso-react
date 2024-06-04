@@ -1,10 +1,11 @@
 
 import { categories } from "../data/categories"
 import { useState,ChangeEvent } from "react"
+import { Activity } from "../types"
 
 export default function Form() {
 
-  const [activity, setActivity] = useState({
+  const [activity, setActivity] = useState<Activity>({
     category: 1,
     name: '',
     calories: 0
@@ -13,9 +14,13 @@ export default function Form() {
 
   // Son dos change por que uno es para input text y el otro es select
   const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
+
+    // Identificar los que queremos convertir a numero ya que al principio se pone en string
+    const isNumberField = ['category','calories'].includes(e.target.id)
+    
    setActivity({
     ...activity,
-    [e.target.id]: e.target.value
+    [e.target.id]: isNumberField ? +e.target.value : e.target.value
    })
   }
 
