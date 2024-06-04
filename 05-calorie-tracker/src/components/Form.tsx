@@ -1,6 +1,6 @@
 
 import { categories } from "../data/categories"
-import { useState } from "react"
+import { useState,ChangeEvent } from "react"
 
 export default function Form() {
 
@@ -11,7 +11,8 @@ export default function Form() {
 
   })
 
-  const handleChange = (e) => {
+  // Son dos change por que uno es para input text y el otro es select
+  const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
    setActivity({
     ...activity,
     [e.target.id]: e.target.value
@@ -32,7 +33,7 @@ export default function Form() {
               id="category" 
               className=" border border-slate-300 p-2 rounded-lg w-full bg-white"
               value={activity.category}
-              onChange={handleChange}
+              onChange={handleChange }
             >
               {categories.map(category => (
                 <option value={category.id}
