@@ -5,11 +5,18 @@ import { useState } from "react"
 export default function Form() {
 
   const [activity, setActivity] = useState({
-    category: '',
+    category: 1,
     name: '',
     calories: 0
 
   })
+
+  const handleChange = (e) => {
+   setActivity({
+    ...activity,
+    [e.target.id]: e.target.value
+   })
+  }
 
   return (
     <div>
@@ -25,8 +32,8 @@ export default function Form() {
               id="category" 
               className=" border border-slate-300 p-2 rounded-lg w-full bg-white"
               value={activity.category}
+              onChange={handleChange}
             >
-             <option value="" disabled selected>-- Seleccionar --</option> 
               {categories.map(category => (
                 <option value={category.id}
                 key={category.id}
@@ -47,6 +54,7 @@ export default function Form() {
               className=" border border-slate-300 p-2 rounded-lg"
               placeholder="Ej. Comida, Juego de Naranja, Ejercicio, Pesas"
               value={activity.name}
+              onChange={handleChange}
             />
 
           </div>
@@ -60,6 +68,7 @@ export default function Form() {
               className=" border border-slate-300 p-2 rounded-lg"
               placeholder="Calorias. Ej. 300 o 500"
               value={activity.calories}
+              onChange={handleChange}
             />
 
           </div>
