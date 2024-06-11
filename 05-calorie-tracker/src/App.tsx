@@ -4,6 +4,8 @@ import { activityReducer, initialState } from "./reducers/activity-reducer"
 
 function App() {
 
+  // Regresa el estado 
+  // Dispatch. Permite ejecutar las acciones
   const [state, dispatch] = useReducer(activityReducer,initialState);
 
   return (
