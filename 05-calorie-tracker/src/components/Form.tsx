@@ -1,6 +1,7 @@
 
 import { categories } from "../data/categories"
 import { useState,ChangeEvent, FormEvent, Dispatch } from "react"
+import {v4 as uuidv4} from 'uuid'
 import { Activity } from "../types"
 import { ActivityActions } from "../reducers/activity-reducer"
 
@@ -8,7 +9,8 @@ type FormProps = {
   dispatch: Dispatch<ActivityActions>
 }
 
-const initialState = {
+const initialState : Activity = {
+  id: uuidv4(),
   category: 1,
   name: '',
   calories: 0
@@ -41,7 +43,8 @@ export default function Form({dispatch} : FormProps) {
     dispatch({type: 'save-activity', payload: {newActivity : activity}})
 
     // Se reseta el formulario despues de guadar la informacion
-    setActivity(initialState)
+    // Se manda a llamar de nuevo el uuidv4 para que genere un nuevo id
+    setActivity({...initialState, id:uuidv4()})
   }
 
   return (
