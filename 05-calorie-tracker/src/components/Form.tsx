@@ -8,14 +8,16 @@ type FormProps = {
   dispatch: Dispatch<ActivityActions>
 }
 
+const initialState = {
+  category: 1,
+  name: '',
+  calories: 0
+
+}
+
 export default function Form({dispatch} : FormProps) {
 
-  const [activity, setActivity] = useState<Activity>({
-    category: 1,
-    name: '',
-    calories: 0
-
-  })
+  const [activity, setActivity] = useState<Activity>(initialState)
 
   // Son dos change por que uno es para input text y el otro es select
   const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
@@ -37,6 +39,9 @@ export default function Form({dispatch} : FormProps) {
   const handleSubmit = (e: FormEvent<HTMLFormElement> ) => {
     e.preventDefault()
     dispatch({type: 'save-activity', payload: {newActivity : activity}})
+
+    // Se reseta el formulario despues de guadar la informacion
+    setActivity(initialState)
   }
 
   return (
