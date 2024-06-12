@@ -1,6 +1,6 @@
 import { Activity } from "../types"
 
-type ActivityState = {
+export type ActivityState = {
     activities : Activity[],
     activeId : Activity['id'],
 }
