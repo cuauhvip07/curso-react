@@ -28,7 +28,7 @@ function App() {
      <section className=" p-10 mx-auto max-w-4xl">
       <ActivityList 
         activities={state.activities}
-        // dispatch={dispatch}
+        dispatch={dispatch}
       />
      </section>
     </>
