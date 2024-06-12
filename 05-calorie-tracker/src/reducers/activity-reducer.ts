@@ -14,10 +14,14 @@ export type ActivityActions =
 
 }
     
-
+const localStorageActivities = () : Activity[] => {
+    const activities = localStorage.getItem('activities');
+    return activities ? JSON.parse(activities) : [];
+}
 
 export const initialState : ActivityState = {
-    activities: [],
+    // Primero era un [] en activities pero se pasa a la funcion en caso de que no haya nada
+    activities: localStorageActivities(),
     activeId: '',
 }
 
