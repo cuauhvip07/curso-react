@@ -10,9 +10,8 @@ export type ActivityActions =
     // payload son los datos que se va agregando 
     {type: 'save-activity', payload: {newActivity : Activity} } |
     {type: 'set-activeId', payload: {id : Activity['id']} } |
-    {type: 'delete-activity', payload: {id : Activity['id']}
-
-}
+    {type: 'delete-activity', payload: {id : Activity['id']} } |
+    {type: 'restart-app'}
     
 const localStorageActivities = () : Activity[] => {
     const activities = localStorage.getItem('activities');
@@ -64,6 +63,14 @@ export const activityReducer = (
         return {
             ...state,
             activities: state.activities.filter( activity => activity.id !== action.payload.id)
+        }
+    }
+
+    if(action.type === 'restart-app'){
+
+        return { 
+            activities: [],
+            activeId: '',
         }
     }
 
