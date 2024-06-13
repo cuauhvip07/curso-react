@@ -1,3 +1,4 @@
+import { useMemo } from "react"
 import { Activity } from "../types"
 
 
@@ -6,9 +7,28 @@ type CalorieTrackerProps = {
 }
 
 export default function CalorieTracker({activities} : CalorieTrackerProps ) {
+
+    // Contadores
+    // Contador de comida
+    const caloriesConsumed = useMemo(() => activities.reduce((total,activity) => activity.category === 1 ? total + activity.calories : total, 0) ,[activities])
+
+    const caloriesRested = useMemo(() => activities.reduce((total,activity) => activity.category === 2 ? total + activity.calories : total , 0),[activities]);
+
   return (
-    <div>
-        Desde calorie
-    </div>
+    <>
+        <h2 className=" text-4xl font-black text-center text-white"> Resumen de Calorias</h2>
+
+        <div className="flex flex-col items-center md:flex-row md:justify-between gap-5 mt-10">
+            <p className=" text-white font-bold rounded-full grid grid-cols-1 gap-3 text-center">
+                <span className="font-black text-6xl text-orange">{caloriesConsumed}</span>
+                Consumidas
+            </p>
+
+            <p className=" text-white font-bold rounded-full grid grid-cols-1 gap-3 text-center">
+                <span className="font-black text-6xl text-orange">{caloriesRested}</span>
+                Quemadas
+            </p>
+        </div>
+    </>
   )
 }
