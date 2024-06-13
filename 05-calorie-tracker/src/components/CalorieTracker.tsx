@@ -12,7 +12,7 @@ export default function CalorieTracker({activities} : CalorieTrackerProps ) {
     // Contador de comida
     const caloriesConsumed = useMemo(() => activities.reduce((total,activity) => activity.category === 1 ? total + activity.calories : total, 0) ,[activities])
 
-    const caloriesRested = useMemo(() => activities.reduce((total,activity) => activity.category === 2 ? total + activity.calories : total , 0),[activities]);
+    const caloriesBurned = useMemo(() => activities.reduce((total,activity) => activity.category === 2 ? total + activity.calories : total , 0),[activities]);
 
   return (
     <>
@@ -25,7 +25,7 @@ export default function CalorieTracker({activities} : CalorieTrackerProps ) {
             </p>
 
             <p className=" text-white font-bold rounded-full grid grid-cols-1 gap-3 text-center">
-                <span className="font-black text-6xl text-orange">{caloriesRested}</span>
+                <span className="font-black text-6xl text-orange">{caloriesBurned}</span>
                 Quemadas
             </p>
         </div>
