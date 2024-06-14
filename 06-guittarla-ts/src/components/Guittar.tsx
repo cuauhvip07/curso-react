@@ -1,13 +1,15 @@
+import { CartActions } from '../reducers/cart-reducer'
 import type { Guitar } from '../types'
+import { Dispatch } from 'react'
 
 type GuitarProps = {
   guitar : Guitar,
-  addToCart: (item: Guitar) => void
+  dispatch: Dispatch<CartActions>
 }
 
 // En lugar de poner props.price con destructuring se pone solo price
 // Tipo inlineType es el que esta comentado, el otro es typeSeparado
-export default function Guittar({guitar,addToCart} : GuitarProps) /* : {guitar : Guitar, addToCart: (item: Guitar) => void}) */ {
+export default function Guittar({guitar, dispatch} : GuitarProps) /* : {guitar : Guitar, addToCart: (item: Guitar) => void}) */ {
 
   const {name,price, image, description} = guitar
 
@@ -25,7 +27,7 @@ export default function Guittar({guitar,addToCart} : GuitarProps) /* : {guitar :
               type="button"
               className="btn btn-dark w-100"
               // Para que no se mande a llamr la funcion se le pone un call back en el onClick
-              onClick={() => addToCart(guitar)}
+              onClick={() => dispatch({type:'add-to-cart', payload:{item: guitar}})}
             >Agregar al Carrito</button>
         </div>
     </div>

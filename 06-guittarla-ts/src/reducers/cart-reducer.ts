@@ -27,7 +27,7 @@ export const cartReducer = (
 
     if(action.type === 'add-to-cart'){
 
-
+        console.log('Desde add to art')
         return {
             ...state
         }
