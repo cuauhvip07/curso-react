@@ -5,7 +5,7 @@ import { CartItem, Guitar } from "../types";
 export type CartActions = 
 {type: 'add-to-cart', payload:{item: Guitar}} | 
 {type:'remove-from-cart', payload: {id: Guitar['id']}} | 
-{type: 'decrease-quantity', payloda: {id: Guitar['id']}} | 
+{type: 'decrease-quantity', payload: {id: Guitar['id']}} | 
 {type: 'increase-quantity', payload: {id: Guitar['id']}} |
 {type: 'clear-cart'}
 
@@ -32,15 +32,23 @@ export const cartReducer = (
 
 
         // Validar si el elemento existe
-        const itemExists = state.cart.findIndex(guitar => guitar.id === action.payload.item.id)
+        const itemExists = state.cart.find(guitar => guitar.id === action.payload.item.id)
         let updatedCart : CartItem[] = []
-        if(state.cart[itemExists].quantity >= MAX_ITEMS){ // Existe en el carrito
-
-            updatedCart = [...state.cart]
-            updatedCart[itemExists].quantity++
-
+        if(itemExists){ // Existe en el carrito
+            updatedCart = state.cart.map( item => {
+                if(item.id === action.payload.item.id){
+                    if(item.quantity < MAX_ITEMS){
+                        return {...item, quantity: item.quantity + 1}
+                    } else{
+                        return item
+                    }
+                } else{
+                    return item
+                }
+            })
         }else{
-            const newItem : CartItem = {...action.payload.item.id, quantity : 1 }
+            
+            const newItem : CartItem = {...action.payload.item, quantity : 1 }
             updatedCart = [...state.cart, newItem]
         }
 

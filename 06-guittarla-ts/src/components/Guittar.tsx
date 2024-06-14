@@ -13,7 +13,7 @@ export default function Guittar({guitar, dispatch} : GuitarProps) /* : {guitar :
 
   const {name,price, image, description} = guitar
 
-  
+
   return (
     <div className="col-md-6 col-lg-4 my-4 row align-items-center">
         <div className="col-4">
