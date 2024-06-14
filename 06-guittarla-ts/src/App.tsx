@@ -1,11 +1,17 @@
 
+import { useReducer } from "react"
 import Header from "./components/Header"
 import Guittar from "./components/Guittar"
 import { useCart } from "./hooks/useCart"
+import { cartReducer, initialState } from "./reducers/cart-reducer"
 
 function App() {
 
     const {data,cart,addToCart,removeFromCart,increaseQuantity,decreaseQuantity,resetCar,isEmpty,cartTotal} = useCart()
+
+    const [state,dispatch] = useReducer(cartReducer, initialState);
+
+    
 
 
   return (
