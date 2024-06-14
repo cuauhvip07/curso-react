@@ -6,12 +6,11 @@ import { useMemo, Dispatch } from "react"
 type HeaderProps = {
     cart: CartItem[];
     dispatch: Dispatch<CartActions>
-    increaseQuantity: (id: Guitar['id']) => void;
     decreaseQuantity: (id: Guitar['id']) => void;
     resetCar: () => void;
 }
 
-export default function Header({cart,dispatch,increaseQuantity,decreaseQuantity,resetCar}: HeaderProps) {
+export default function Header({cart,dispatch,decreaseQuantity,resetCar}: HeaderProps) {
 
     // Si traemo el hook de useCart se crea una nueva instancia y hace que se desfase, por eso los valores se pasan mediante via props
 
@@ -73,7 +72,7 @@ export default function Header({cart,dispatch,increaseQuantity,decreaseQuantity,
                                                 <button
                                                     type="button"
                                                     className="btn btn-dark"
-                                                    onClick={() => increaseQuantity(guitar.id)}
+                                                    onClick={() => dispatch({type:'increase-quantity', payload: {id: guitar.id}})}
                                                 >
                                                     +
                                                 </button>
