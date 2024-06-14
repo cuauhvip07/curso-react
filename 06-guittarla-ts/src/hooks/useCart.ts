@@ -21,9 +21,6 @@ export const useCart = () => {
 
    
 
-    function removeFromCart(id :  Guitar['id']){
-        setCart(prevCart => prevCart.filter( guitar => guitar.id !== id))
-    }
 
     function increaseQuantity(id :  Guitar['id']){
         const updatedCart = cart.map( item => {
@@ -61,7 +58,6 @@ export const useCart = () => {
 
     return {
         cart,
-        removeFromCart,
         increaseQuantity,
         decreaseQuantity,
         resetCar,
