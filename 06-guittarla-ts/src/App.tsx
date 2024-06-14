@@ -11,8 +11,6 @@ function App() {
 
     const [state,dispatch] = useReducer(cartReducer, initialState);
 
-    console.log(state)
-
 
   return (
     <>
