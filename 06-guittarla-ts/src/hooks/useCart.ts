@@ -22,14 +22,10 @@ export const useCart = () => {
 
    
 
-    function resetCar(){
-        setCart([])
-    }
 
     
 
     return {
         cart,
-        resetCar,
     }
 }
