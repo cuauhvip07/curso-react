@@ -1,5 +1,5 @@
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import BudgetForm from "./components/BudgetForm"
 import { useBudget } from "./hooks/useBudget"
 import BudgetTracker from "./components/BudgetTracker";
@@ -10,6 +10,12 @@ import ExpenseList from "./components/ExpenseList";
 function App() {
 
   const {state} = useBudget();
+
+  useEffect(() => {
+    localStorage.setItem('expense',JSON.stringify(state.expenses)) 
+    // Convierte el numero a string
+    localStorage.setItem('budget',state.budget.toString())
+  }, [state] )
 
   const isValidBudget = useMemo(() => state.budget > 0 ,[state.budget]);
 
