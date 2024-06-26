@@ -11,7 +11,7 @@ type ActivityProviderProps = {
 }
 
 
-const ActivityContext = createContext<ActivityContextProps>(null!)
+export const ActivityContext = createContext<ActivityContextProps>(null!)
 
 
 export const ActivityProvider = ({children} : ActivityProviderProps) => {
