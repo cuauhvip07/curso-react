@@ -1,16 +1,16 @@
 import { Activity } from "../types"
 import { categories } from "../data/categories";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { PencilSquareIcon, XCircleIcon } from '@heroicons/react/24/outline';
-import { ActivityActions } from "../reducers/activity-reducer";
-
-type ActivityListProps = {
-    activities: Activity[],
-    dispatch: React.Dispatch<ActivityActions>
-}
+import { useActivity } from "../hooks/useActivity";
 
 
-export default function ActivityList({activities,dispatch} : ActivityListProps) {
+export default function ActivityList() {
+
+    const {state,dispatch} = useActivity()
+
+    const {activities} = state
+
     // Traer el nombre de la categoria y no el numero
     const categoryName = useMemo(() => (category : Activity['category']) => categories.map(cat => cat.id === category ? cat.name : ''), [activities])
 
