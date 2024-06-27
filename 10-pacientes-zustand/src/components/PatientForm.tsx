@@ -1,4 +1,5 @@
 import {useForm} from 'react-hook-form'
+import Error from './Error'
 
 export default function PatientForm() {
 
@@ -39,8 +40,10 @@ export default function PatientForm() {
                     />
                 </div>
 
-                {errors.name?.message}
-  
+                {errors.name && (
+                    <Error>{errors.name?.message?.toString()}</Error>
+                )}
+
                 <div className="mb-5">
                   <label htmlFor="caretaker" className="text-sm uppercase font-bold">
                       Propietario 
