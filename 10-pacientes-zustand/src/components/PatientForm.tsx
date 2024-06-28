@@ -1,14 +1,17 @@
 import {useForm} from 'react-hook-form'
 import Error from './Error'
+import { DraftPatient } from '../types'
 
 export default function PatientForm() {
 
-    const {register, handleSubmit, formState : {errors}} = useForm()
+    // El register mantiene el state
+    const {register, handleSubmit, formState : {errors}} = useForm<DraftPatient>()
 
     // Conectar con el handleSubmit para poner tu logica
     // En caso de pasar la validacion se ejecuta el codigo de adentro
-    const registerPatient = () => {
-        console.log('Nuevo paciente')
+    // En el data trae la informacion del formulario
+    const registerPatient = (data : DraftPatient) => {
+        console.log(data)
     }
   
     return (
@@ -41,7 +44,8 @@ export default function PatientForm() {
                 </div>
 
                 {errors.name && (
-                    <Error>{errors.name.message?.toString()}</Error>
+                    // Cuando no defines el type se ocupoa asi {errors.name.message?.toString()}
+                    <Error>{errors.name.message}</Error>
                 )}
 
                 <div className="mb-5">
@@ -60,7 +64,7 @@ export default function PatientForm() {
                 </div>
 
                 {errors.caretaker && (
-                    <Error>{errors.caretaker.message?.toString()}</Error>
+                    <Error>{errors.caretaker.message}</Error>
                 )}
   
               <div className="mb-5">
@@ -83,7 +87,7 @@ export default function PatientForm() {
               </div>
 
               {errors.email && (
-                <Error>{errors.email.message?.toString()}</Error>
+                <Error>{errors.email.message}</Error>
               )}
   
                 <div className="mb-5">
@@ -101,7 +105,7 @@ export default function PatientForm() {
                 </div>
 
                 {errors.date && (
-                    <Error>{errors.date.message?.toString()}</Error>
+                    <Error>{errors.date.message}</Error>
                 )}
               
               <div className="mb-5">
@@ -119,7 +123,7 @@ export default function PatientForm() {
               </div>
 
               {errors.symptoms && (
-                <Error>{errors.symptoms.message?.toString()}</Error>
+                <Error>{errors.symptoms.message}</Error>
               )}
   
               <input
