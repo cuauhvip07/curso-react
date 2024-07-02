@@ -1,5 +1,7 @@
 import {useForm} from 'react-hook-form'
 import Error from './Error'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { DraftPatient } from '../types'
 import { usePatientStore } from '../store'
 import { useEffect } from 'react'
@@ -30,9 +32,15 @@ export default function PatientForm() {
     const registerPatient = (data : DraftPatient) => {
         if(activeId){
             updatePatient(data)
+            toast.success('Paciente Actualizado Correctamente',{
+                draggable: true
+            })
         }
         else{
             addPatient(data)
+            toast.success('Paciente Registrado Correctamente',{
+                draggable: true
+            })
         }
       
 
