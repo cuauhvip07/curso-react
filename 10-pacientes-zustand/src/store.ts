@@ -1,5 +1,6 @@
 
 import { create } from 'zustand'
+import {devtools} from 'zustand/middleware'    // Usar la extension de chrome
 import { DraftPatient, Patient } from './types'
 import {v4 as uuidv4} from 'uuid'
 
@@ -16,7 +17,8 @@ const createPatient = (patient: DraftPatient) : Patient => {
 }
 
 // Se puede agregar set y get para obtener o modifcar las funciones
-export const usePatientStore = create<PatientState>((set) => ({
+// devtools debe de estar en todo el archivo hacia abajo
+export const usePatientStore = create<PatientState>()(devtools((set) => ({
     // Se coloca el state como las funciones que modifican el state
 
     patients: [],
@@ -43,4 +45,4 @@ export const usePatientStore = create<PatientState>((set) => ({
             activeId: id
         }))
     }
-}))
+})))
