@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 
 export default function PatientForm() {
 
-    const { addPatient, activeId, patients} = usePatientStore() 
+    const { addPatient, activeId, patients, updatePatient} = usePatientStore() 
     // Otra sintaxis para poder ocuparla
     // const addPatient = usePatientStore(state => state.addPatient)
 
@@ -28,7 +28,13 @@ export default function PatientForm() {
     // En caso de pasar la validacion se ejecuta el codigo de adentro
     // En el data trae la informacion del formulario
     const registerPatient = (data : DraftPatient) => {
-       addPatient(data)
+        if(activeId){
+            updatePatient(data)
+        }
+        else{
+            addPatient(data)
+        }
+      
 
        reset()
     }
