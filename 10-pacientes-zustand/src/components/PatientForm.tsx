@@ -2,15 +2,27 @@ import {useForm} from 'react-hook-form'
 import Error from './Error'
 import { DraftPatient } from '../types'
 import { usePatientStore } from '../store'
+import { useEffect } from 'react'
 
 export default function PatientForm() {
 
-    const { addPatient } = usePatientStore() 
+    const { addPatient, activeId, patients} = usePatientStore() 
     // Otra sintaxis para poder ocuparla
     // const addPatient = usePatientStore(state => state.addPatient)
 
     // El register mantiene el state
-    const {register, handleSubmit, formState : {errors}, reset} = useForm<DraftPatient>()
+    const {register, handleSubmit, setValue, formState : {errors}, reset} = useForm<DraftPatient>()
+
+    useEffect(() => {
+        if(activeId){
+            const activePatient = patients.filter( patient => patient.id === activeId)[0]
+            setValue('name', activePatient.name)
+            setValue('caretaker', activePatient.caretaker)
+            setValue('date', activePatient.date)
+            setValue('email', activePatient.email)
+            setValue('symptoms', activePatient.symptoms)
+        }
+    },[activeId])
 
     // Conectar con el handleSubmit para poner tu logica
     // En caso de pasar la validacion se ejecuta el codigo de adentro
@@ -20,7 +32,7 @@ export default function PatientForm() {
 
        reset()
     }
-  
+
     return (
       <div className="md:w-1/2 lg:w-2/5 mx-5">
           <h2 className="font-black text-3xl text-center">Seguimiento Pacientes</h2>
