@@ -1,6 +1,6 @@
 
 import { create } from 'zustand'
-import {devtools} from 'zustand/middleware'    // Usar la extension de chrome
+import {createJSONStorage, devtools , persist} from 'zustand/middleware'    // Usar la extension de chrome
 import { DraftPatient, Patient } from './types'
 import {v4 as uuidv4} from 'uuid'
 
@@ -19,39 +19,43 @@ const createPatient = (patient: DraftPatient) : Patient => {
 
 // Se puede agregar set y get para obtener o modifcar las funciones
 // devtools debe de estar en todo el archivo hacia abajo
-export const usePatientStore = create<PatientState>()(devtools((set) => ({
+export const usePatientStore = create<PatientState>()(devtools(persist((set) => ({
     // Se coloca el state como las funciones que modifican el state
 
-    patients: [],
+        patients: [],
 
-    activeId: '',
+        activeId: '',
 
-    addPatient: (data) => {
-        
-        const newPatient = createPatient(data)
-        // El state recupera el estado de las funciones dentro de usePatientStore
-        set((state) => ({
-            patients: [...state.patients, newPatient]
-        }))
-    },
+        addPatient: (data) => {
+            
+            const newPatient = createPatient(data)
+            // El state recupera el estado de las funciones dentro de usePatientStore
+            set((state) => ({
+                patients: [...state.patients, newPatient]
+            }))
+        },
 
-    deletePatient: (id) => {
-        set((state) => ({
-            patients: state.patients.filter(patient => patient.id !== id)
-        }))
-    },
+        deletePatient: (id) => {
+            set((state) => ({
+                patients: state.patients.filter(patient => patient.id !== id)
+            }))
+        },
 
-    getPatientById: (id) => {
-        set(() => ({
-            activeId: id
-        }))
-    },
+        getPatientById: (id) => {
+            set(() => ({
+                activeId: id
+            }))
+        },
 
-    updatePatient: (data) => {
-        set((state) => ({
-            patients:state.patients.map(patient => patient.id === state.activeId ? {id: patient.id, ...data} : patient),
-            activeId: ''
-        }))
-    }
+        updatePatient: (data) => {
+            set((state) => ({
+                patients:state.patients.map(patient => patient.id === state.activeId ? {id: patient.id, ...data} : patient),
+                activeId: ''
+            }))
+        }
 
-})))
+    }), {
+        name: 'patient-storage'
+        // storage: createJSONStorage(() => localStorage) En caso de querer especificar en donde guardar 
+    })
+))
