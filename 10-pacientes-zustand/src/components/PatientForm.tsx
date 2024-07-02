@@ -1,8 +1,13 @@
 import {useForm} from 'react-hook-form'
 import Error from './Error'
 import { DraftPatient } from '../types'
+import { usePatientStore } from '../store'
 
 export default function PatientForm() {
+
+    const { addPatient } = usePatientStore() 
+    // Otra sintaxis para poder ocuparla
+    // const addPatient = usePatientStore(state => state.addPatient)
 
     // El register mantiene el state
     const {register, handleSubmit, formState : {errors}} = useForm<DraftPatient>()
@@ -11,7 +16,7 @@ export default function PatientForm() {
     // En caso de pasar la validacion se ejecuta el codigo de adentro
     // En el data trae la informacion del formulario
     const registerPatient = (data : DraftPatient) => {
-        console.log(data)
+       addPatient(data)
     }
   
     return (
