@@ -38,6 +38,22 @@ export default function PatientDetails({patient} : PatientDetailsProps) {
         label="Sintomas"
         data={patient.symptoms}
       />
+
+      <div className=" flex justify-between mt-3">
+        <button 
+          className=" py-2 px-10 bg-indigo-600 hover:bg-indigo-700 text-white font-bold uppercase rounded-lg"
+          type="button"
+        >
+          Editar
+        </button>
+
+        <button 
+          className=" py-2 px-10 bg-red-600 hover:bg-red-700 text-white font-bold uppercase rounded-lg"
+          type="button"
+        >
+          Eliminar
+        </button>
+      </div>
       
     </div>
   )

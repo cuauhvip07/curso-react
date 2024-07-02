@@ -10,13 +10,15 @@ export default function PatientForm() {
     // const addPatient = usePatientStore(state => state.addPatient)
 
     // El register mantiene el state
-    const {register, handleSubmit, formState : {errors}} = useForm<DraftPatient>()
+    const {register, handleSubmit, formState : {errors}, reset} = useForm<DraftPatient>()
 
     // Conectar con el handleSubmit para poner tu logica
     // En caso de pasar la validacion se ejecuta el codigo de adentro
     // En el data trae la informacion del formulario
     const registerPatient = (data : DraftPatient) => {
        addPatient(data)
+
+       reset()
     }
   
     return (
