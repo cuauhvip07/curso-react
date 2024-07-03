@@ -6,8 +6,9 @@ export default function useWeather(){
 
     const fetchWeather = async (search : SearchType) => {
 
-        // Para ocultar el key se crea un archivo .env  para que no se vea desde git, en produccion se hace de otra manera
-        const appId = '1c28f86c0355c5c5583307676ccea073'
+        // Para ocultar el key se crea un archivo .env.local (se ve en la paginad de Vite) para que no se vea desde git, en produccion se agrega en un panel
+        // Obtener la variable de entorno
+        const appId = import.meta.env.VITE_API_KEY 
 
         try {
             // Consulta de la API y nos da una URL del JSON

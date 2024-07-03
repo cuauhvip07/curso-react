@@ -6,6 +6,8 @@ import useWeather from "./hooks/useWeather"
 function App() {
 
   const {fetchWeather} = useWeather()
+  // Consultar las variables de entorno
+  // console.log(import.meta.env)
 
   return (
     <>
