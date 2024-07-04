@@ -1,6 +1,7 @@
 
 import axios from "axios"
-import { SearchType, Weather } from "../types"
+import {object, z} from 'Zod'
+import { SearchType } from "../types"
 
 
 // 2. Type Guards
@@ -14,6 +15,20 @@ import { SearchType, Weather } from "../types"
 //         typeof (weather as Weather).main.temp_min === 'number'
 //     )
 // }
+
+// 3. Zod
+
+const Weather = z.object({
+    name: z.string(),
+    main: z.object({
+        temp: z.number(),
+        temp_max: z.number(),
+        temp_min: z.number()
+    })
+})
+
+type Weather = z.infer<typeof Weather>
+
 
 export default function useWeather(){
 
@@ -43,6 +58,16 @@ export default function useWeather(){
             // if(result) {
             //     console.log(weatherResult.name)
             // }
+
+            // 3. Zod
+
+            const {data : weatherResult} = await axios<Weather>(weatherUrl)
+            const result = Weather.safeParse(weatherResult)
+            
+            if(result.success){
+                console.log(result.data.main.temp)
+            }
+
 
         } catch (error) {
             console.log(error)
