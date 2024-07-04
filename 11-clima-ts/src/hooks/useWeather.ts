@@ -1,6 +1,7 @@
 
 import axios from "axios"
-import {object, z} from 'Zod'
+// import {object, z} from 'Zod'
+import {object,string,number, Output, parse} from 'valibot'
 import { SearchType } from "../types"
 
 
@@ -18,17 +19,29 @@ import { SearchType } from "../types"
 
 // 3. Zod
 
-const Weather = z.object({
-    name: z.string(),
-    main: z.object({
-        temp: z.number(),
-        temp_max: z.number(),
-        temp_min: z.number()
+// const Weather = z.object({
+//     name: z.string(),
+//     main: z.object({
+//         temp: z.number(),
+//         temp_max: z.number(),
+//         temp_min: z.number()
+//     })
+// })
+
+// type Weather = z.infer<typeof Weather>
+
+// 4. Valibot
+
+const WeatherSchema = object({
+    name: string(),
+    main: object({
+        temp: number(),
+        temp_max: number(),
+        temp_min: number()
     })
 })
 
-type Weather = z.infer<typeof Weather>
-
+type Weather = Output<typeof WeatherSchema>
 
 export default function useWeather(){
 
@@ -59,14 +72,24 @@ export default function useWeather(){
             //     console.log(weatherResult.name)
             // }
 
-            // 3. Zod
+            // 3. Zod -> NO es modular, pesa mas
 
-            const {data : weatherResult} = await axios<Weather>(weatherUrl)
-            const result = Weather.safeParse(weatherResult)
+            // const {data : weatherResult} = await axios(weatherUrl)
+            // const result = Weather.safeParse(weatherResult)
             
-            if(result.success){
-                console.log(result.data.main.temp)
+            // if(result.success){
+            //     console.log(result.data.main.temp)
+            // }
+
+            // 4. Valibot
+            const {data : weatherResult} = await axios(weatherUrl)
+            const result = parse(WeatherSchema , weatherResult)
+            if(result){
+                console.log(result.name)
+            }else{
+                console.log('Respuesta mal formada')
             }
+
 
 
         } catch (error) {
