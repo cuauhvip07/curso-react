@@ -16,7 +16,13 @@ export default function useWeather(){
 
             // Nos da la respuesta tipo FetchAPI con la informacion, status, etc
             const {data} = await axios(geoUrl)
-            console.log(data)
+            const lat = data[0].lat
+            const lon = data[0].lon
+
+            const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appId}`
+            const {data : weatherResult} = await axios(weatherUrl)
+            
+
         } catch (error) {
             console.log(error)
         }
