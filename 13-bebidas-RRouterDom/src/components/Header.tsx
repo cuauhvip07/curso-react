@@ -1,9 +1,13 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 
 
 
 export default function Header() {
+
+    const location = useLocation()
+    console.log(location.pathname)
+
   return (
 
     <header className=" bg-slate-800">
