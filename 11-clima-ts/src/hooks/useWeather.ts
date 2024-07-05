@@ -57,6 +57,7 @@ export default function useWeather(){
     const [weather, setWeather] = useState<Weather>(initialState)
 
     const [loading, setLoading] = useState(false)
+    const [notFound, setNotFound] = useState(false)
 
     const fetchWeather = async (search : SearchType) => {
 
@@ -67,12 +68,20 @@ export default function useWeather(){
         setLoading(true)
         // Para que no de un salto el spinner se debe de reiniciar el state ya que tiene informacion y por eso es que se queda
         setWeather(initialState)
+        setNotFound(false)
         try {
             // Consulta de la API y nos da una URL del JSON
-            const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}`
+            const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}`
 
             // Nos da la respuesta tipo FetchAPI con la informacion, status, etc
             const {data} = await axios(geoUrl)
+            
+            // Comprobar si existe la ciudad que se busca
+            if(!data[0]){
+               setNotFound(true)
+                return
+            }
+
             const lat = data[0].lat
             const lon = data[0].lon
 
@@ -123,6 +132,7 @@ export default function useWeather(){
     return {
         weather,
         loading,
+        notFound,
         fetchWeather,
         hasWeatherData
     }
