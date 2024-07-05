@@ -1,9 +1,9 @@
 
 import axios from "axios"
-// import {object, z} from 'Zod'
-import {object,string,number, Output, parse} from 'valibot'
+import {object, z} from 'Zod'
+// import {object,string,number, Output, parse} from 'valibot'
 import { SearchType } from "../types"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 
 // 2. Type Guards
@@ -20,29 +20,28 @@ import { useState } from "react"
 
 // 3. Zod
 
-// const Weather = z.object({
-//     name: z.string(),
-//     main: z.object({
-//         temp: z.number(),
-//         temp_max: z.number(),
-//         temp_min: z.number()
-//     })
-// })
-
-// type Weather = z.infer<typeof Weather>
-
-// 4. Valibot
-
-const WeatherSchema = object({
-    name: string(),
-    main: object({
-        temp: number(),
-        temp_max: number(),
-        temp_min: number()
+const Weather = z.object({
+    name: z.string(),
+    main: z.object({
+        temp: z.number(),
+        temp_max: z.number(),
+        temp_min: z.number()
     })
 })
 
-export type Weather = Output<typeof WeatherSchema>
+export type Weather = z.infer<typeof Weather>
+
+// 4. Valibot
+
+// const WeatherSchema = object({
+//     name: string(),
+//     main: object({
+//         temp: number(),
+//         temp_max: number(),
+//         temp_min: number()
+//     })
+// })
+// export type Weather = Output<typeof WeatherSchema>
 
 export default function useWeather(){
 
@@ -84,29 +83,24 @@ export default function useWeather(){
 
             // 3. Zod -> NO es modular, pesa mas
 
-            // const {data : weatherResult} = await axios(weatherUrl)
-            // const result = Weather.safeParse(weatherResult)
+            const {data : weatherResult} = await axios(weatherUrl)
+            const result = Weather.safeParse(weatherResult)
             
-            // if(result.success){
-            //     console.log(result.data.main.temp)
-            // }
+            if(result.success){
+                setWeather(result.data)
+            }else{
+                console.log('Rspuesta mal formada')
+            }
 
             // 4. Valibot
-            const {data : weatherResult} = await axios(weatherUrl)
-            const result = parse(WeatherSchema , weatherResult)
-            // Agrgando la informacion al state
-            if(result){
-                setWeather({
-                    name: result.name,
-                    main: {
-                        temp:result.main.temp,
-                        temp_max:result.main.temp_max,
-                        temp_min:result.main.temp_min
-                    }
-                })
-            }else{
-                console.log('Respuesta mal formada')
-            }
+            // const {data : weatherResult} = await axios(weatherUrl)
+            // const result = parse(WeatherSchema , weatherResult)
+            // // Agrgando la informacion al state
+            // if(result){
+            //     console.log(result)
+            // }else{
+            //     console.log('Respuesta mal formada')
+            // }
 
 
 
@@ -115,8 +109,11 @@ export default function useWeather(){
         }
     }
 
+    const hasWeatherData = useMemo(() => weather.name ,[weather])
+
     return {
         weather,
-        fetchWeather
+        fetchWeather,
+        hasWeatherData
     }
 }

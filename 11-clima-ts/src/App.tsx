@@ -6,7 +6,7 @@ import useWeather from "./hooks/useWeather"
 
 function App() {
 
-  const {weather,fetchWeather} = useWeather()
+  const {weather,hasWeatherData,fetchWeather} = useWeather()
   // Consultar las variables de entorno
   // console.log(import.meta.env)
 
@@ -19,9 +19,14 @@ function App() {
         fetchWeather={fetchWeather}
       />
       
-      <WeatherDetail
-        weather={weather}
-      />
+      {hasWeatherData && 
+
+        <WeatherDetail
+          weather={weather}
+
+        />
+      }
+      
      </div>
     </>
   )
