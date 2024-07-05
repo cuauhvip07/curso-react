@@ -1,6 +1,6 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-
+import { useAppStore } from "../stores/useAppStore";
 
 
 
@@ -10,6 +10,11 @@ export default function Header() {
     
     // Comprobar si esta en la pagina de inicio
     const isHome = useMemo(() => location.pathname === '/' ,[location.pathname])
+
+    const {fetchCategories} = useAppStore()
+    useEffect(() => {
+        fetchCategories()
+    },[])
 
   return (
 
