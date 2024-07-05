@@ -3,6 +3,7 @@ import axios from "axios"
 // import {object, z} from 'Zod'
 import {object,string,number, Output, parse} from 'valibot'
 import { SearchType } from "../types"
+import { useState } from "react"
 
 
 // 2. Type Guards
@@ -41,9 +42,18 @@ const WeatherSchema = object({
     })
 })
 
-type Weather = Output<typeof WeatherSchema>
+export type Weather = Output<typeof WeatherSchema>
 
 export default function useWeather(){
+
+    const [weather, setWeather] = useState<Weather>({
+        name:'',
+        main: {
+            temp:0,
+            temp_max:0,
+            temp_min:0
+        }
+    })
 
     const fetchWeather = async (search : SearchType) => {
 
@@ -84,8 +94,16 @@ export default function useWeather(){
             // 4. Valibot
             const {data : weatherResult} = await axios(weatherUrl)
             const result = parse(WeatherSchema , weatherResult)
+            // Agrgando la informacion al state
             if(result){
-                console.log(result.name)
+                setWeather({
+                    name: result.name,
+                    main: {
+                        temp:result.main.temp,
+                        temp_max:result.main.temp_max,
+                        temp_min:result.main.temp_min
+                    }
+                })
             }else{
                 console.log('Respuesta mal formada')
             }
@@ -98,6 +116,7 @@ export default function useWeather(){
     }
 
     return {
+        weather,
         fetchWeather
     }
 }
