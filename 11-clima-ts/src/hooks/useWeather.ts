@@ -29,6 +29,15 @@ const Weather = z.object({
     })
 })
 
+const initialState = {
+    name:'',
+    main: {
+        temp:0,
+        temp_max:0,
+        temp_min:0
+    }
+}
+
 export type Weather = z.infer<typeof Weather>
 
 // 4. Valibot
@@ -45,14 +54,7 @@ export type Weather = z.infer<typeof Weather>
 
 export default function useWeather(){
 
-    const [weather, setWeather] = useState<Weather>({
-        name:'',
-        main: {
-            temp:0,
-            temp_max:0,
-            temp_min:0
-        }
-    })
+    const [weather, setWeather] = useState<Weather>(initialState)
 
     const [loading, setLoading] = useState(false)
 
@@ -63,6 +65,8 @@ export default function useWeather(){
         const appId = import.meta.env.VITE_API_KEY 
 
         setLoading(true)
+        // Para que no de un salto el spinner se debe de reiniciar el state ya que tiene informacion y por eso es que se queda
+        setWeather(initialState)
         try {
             // Consulta de la API y nos da una URL del JSON
             const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}`
