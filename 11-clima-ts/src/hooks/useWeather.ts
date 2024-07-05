@@ -54,12 +54,15 @@ export default function useWeather(){
         }
     })
 
+    const [loading, setLoading] = useState(false)
+
     const fetchWeather = async (search : SearchType) => {
 
         // Para ocultar el key se crea un archivo .env.local (se ve en la paginad de Vite) para que no se vea desde git, en produccion se agrega en un panel
         // Obtener la variable de entorno
         const appId = import.meta.env.VITE_API_KEY 
 
+        setLoading(true)
         try {
             // Consulta de la API y nos da una URL del JSON
             const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}`
@@ -106,6 +109,8 @@ export default function useWeather(){
 
         } catch (error) {
             console.log(error)
+        } finally{
+            setLoading(false)
         }
     }
 
@@ -113,6 +118,7 @@ export default function useWeather(){
 
     return {
         weather,
+        loading,
         fetchWeather,
         hasWeatherData
     }
