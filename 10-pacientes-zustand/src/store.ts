@@ -18,7 +18,8 @@ const createPatient = (patient: DraftPatient) : Patient => {
 }
 
 // Se puede agregar set y get para obtener o modifcar las funciones
-// devtools debe de estar en todo el archivo hacia abajo
+// devtools debe de estar en todo el archivo hacia abajo -> Visualizar los valores en chrome
+//Persist -> Manetener los valores en el localStorage
 export const usePatientStore = create<PatientState>()(devtools(persist((set) => ({
     // Se coloca el state como las funciones que modifican el state
 
