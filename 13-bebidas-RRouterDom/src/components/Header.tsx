@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 
 
@@ -15,19 +15,24 @@ export default function Header() {
                 </div>
 
                 <nav className=" flex gap-3">
-                    <Link 
+                    {/* NavLink ayuda agregarle js para que resatle en que pagina se encuentra el usuario  */}
+                    <NavLink 
                         to={'/'}
-                        className=" text-white uppercase font-bold"
+                        className={({isActive}) => 
+                            isActive ? 'text-orange-500 uppercase font-bold' : 'text-white uppercase font-bold'
+                        }
                     >
                         Inicio
-                    </Link>
+                    </NavLink>
 
-                    <Link 
+                    <NavLink 
                         to={'/favoritos'}
-                        className=" text-white uppercase font-bold"
+                        className={({isActive}) => 
+                            isActive ? 'text-orange-500 uppercase font-bold' : 'text-white uppercase font-bold'
+                        }
                     >
                         Favoritos
-                    </Link>
+                    </NavLink>
                 </nav>
             </div>
         </div>
