@@ -11,7 +11,7 @@ export default function Header() {
     // Comprobar si esta en la pagina de inicio
     const isHome = useMemo(() => location.pathname === '/' ,[location.pathname])
 
-    const {fetchCategories} = useAppStore()
+    const {fetchCategories,categories} = useAppStore()
 
     useEffect(() => {
         fetchCategories()
@@ -82,6 +82,14 @@ export default function Header() {
                             className="p-3 w-full rounded-lg focus:outline-none text-gray-500"
                         >
                             <option value="">-- Seleccione --</option>
+                            {categories.drinks.map(category => (
+                                <option 
+                                    value={category.strCategory}
+                                    key={category.strCategory}
+                                >
+                                    {category.strCategory}
+                                </option>
+                            ))}
                         </select>
                     </div>
 
