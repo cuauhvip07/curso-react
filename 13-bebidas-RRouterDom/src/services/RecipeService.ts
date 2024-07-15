@@ -1,6 +1,7 @@
 
 import axios from "axios";
 import { CategoriesAPIResponseSchema } from "../utils/recipes-schema";
+import { SearchFilter } from "../types";
 
 export async function getCategories(){
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
@@ -11,4 +12,13 @@ export async function getCategories(){
     if(result.success){
         return result.data
     }
+}
+
+// Consulta del schema
+
+export async function getRecipes(filter : SearchFilter) {
+    // Se le agrega el & para que tambien busque por ingrediente
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filter.category}&i=${filter.ingredient}`
+    const {data} = await axios(url);
+    console.log(data)
 }
