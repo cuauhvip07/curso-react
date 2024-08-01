@@ -1,10 +1,31 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { useAppStore } from '../stores/useAppStore';
+import { Recipe } from '../types';
 
 export default function Modal() {
 
     const {modal,closeModal,selectedRecipe} = useAppStore()
+
+    const renderIngredients = () => {
+        const ingridients : JSX.Element[] = []
+
+        for(let i = 1; i <= 6; i++){
+            // Se usa keyof para que no nos salga el error "`strIngredient${number}`" no se puede usar para indexar el tipo "{
+            const ingridient = selectedRecipe[`strIngredient${i}` as keyof Recipe ]
+            const measure = selectedRecipe[`strMeasure${i}` as keyof Recipe ]
+
+            if( ingridient && measure) {
+                ingridients.push(
+                    <li key={i} className=' text-lg font-normal'>
+                        {ingridient} - {measure}
+                    </li>
+                )
+            }
+        }
+
+        return ingridients
+    }
 
   return (
     <>
@@ -46,6 +67,7 @@ export default function Modal() {
                     />
 
                   </Dialog.Title>
+                  {renderIngredients()}
                   <Dialog.Title as="h3" className="text-gray-900 text-2xl font-extrabold my-5">
                     Instrucciones
                   </Dialog.Title>
