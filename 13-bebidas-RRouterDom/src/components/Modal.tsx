@@ -55,10 +55,10 @@ export default function Modal() {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6" >
-                  <Dialog.Title as="h3" className="text-gray-900 text-4xl font-extrabold my-5 text-center">
+                    <Dialog.Title as="h3" className="text-gray-900 text-4xl font-extrabold my-5 text-center">
                       {selectedRecipe.strDrink}
-                  </Dialog.Title>
-                  <Dialog.Title as="h3" className="text-gray-900 text-2xl font-extrabold my-5">
+                    </Dialog.Title>
+                    <Dialog.Title as="h3" className="text-gray-900 text-2xl font-extrabold my-5">
 
                     <img 
                         src={selectedRecipe.strDrinkThumb}
@@ -66,12 +66,31 @@ export default function Modal() {
                         className=' mx-auto w-96' 
                     />
 
-                  </Dialog.Title>
-                  {renderIngredients()}
-                  <Dialog.Title as="h3" className="text-gray-900 text-2xl font-extrabold my-5">
-                    Instrucciones
-                  </Dialog.Title>
-                  <p className=' text-lg'>{selectedRecipe.strInstructions}</p>
+                    </Dialog.Title>
+                    {renderIngredients()}
+                    <Dialog.Title as="h3" className="text-gray-900 text-2xl font-extrabold my-5">
+                        Instrucciones
+                    </Dialog.Title>
+                    <p className=' text-lg'>{selectedRecipe.strInstructions}</p>
+
+                    <div className=' mt-5 flex justify-between gap-4'>
+
+                        <button
+                            type='button'
+                            className=' w-full rounded bg-gray-600 p-3 font-bold uppercase text-white shadow hover:bg-gray-500'
+                            onClick={closeModal}
+                        >
+                            Cerrar
+                        </button>
+
+                        <button
+                            type='button'
+                            className=' w-full rounded bg-orange-600 p-3 font-bold uppercase text-white shadow hover:bg-orange-500'
+                        >
+                            Agregar a Favoritos
+                        </button>
+                    
+                    </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
