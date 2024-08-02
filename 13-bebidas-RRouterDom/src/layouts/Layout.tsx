@@ -6,7 +6,7 @@ import { useAppStore } from "../stores/useAppStore"
 
 
 export default function Layout() {
-  const {loadFromSorage} = useAppStore()
+  const {loadFromSorage, notification} = useAppStore()
   // Mandar a traer los favoritos
   useEffect(() => {
     loadFromSorage()
