@@ -1,6 +1,7 @@
 import { StateCreator } from "zustand"
 import { getCategories, getRecipes, getRecipesById } from "../services/RecipeService"
 import type { Categories, Drink, Drinks, Recipe, SearchFilter } from "../types"
+import { FavoritesSliceType } from "./favoritesSlice"
 
 
 export type RecipesSliceTypes = {
@@ -15,7 +16,8 @@ export type RecipesSliceTypes = {
 }
 
 // Se le agrega el StateCreator para tiparlo
-export const createRecipesSlice : StateCreator<RecipesSliceTypes> = (set) => ({
+// El & es cuando se manda llamar el slice en otro slice, los [] [] es que no pasas parametros y al ultimo el type que se utiliza en este slice
+export const createRecipesSlice : StateCreator<RecipesSliceTypes & FavoritesSliceType, [], [], RecipesSliceTypes>  = (set) => ({
 
     categories:{
         drinks:[]
