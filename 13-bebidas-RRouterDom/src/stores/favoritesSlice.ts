@@ -2,6 +2,7 @@
 import { StateCreator } from "zustand"
 import { Recipe } from "../types"
 import { createRecipesSlice, RecipesSliceTypes } from "./recipeSlice"
+import { createNotificationSlice, NotificationSliceTypes } from "./notificationSlice"
 
 
 export type FavoritesSliceType = {
@@ -11,7 +12,7 @@ export type FavoritesSliceType = {
     loadFromSorage: () => void
 }
 
-export const createFavoritesSlice : StateCreator<FavoritesSliceType & RecipesSliceTypes, [], [], FavoritesSliceType> = (set,get,api) => ({
+export const createFavoritesSlice : StateCreator<FavoritesSliceType & RecipesSliceTypes & NotificationSliceTypes, [], [], FavoritesSliceType> = (set,get,api) => ({
     favorites: [],
 
     handleClickFavorite: (recipe) => {
@@ -21,11 +22,13 @@ export const createFavoritesSlice : StateCreator<FavoritesSliceType & RecipesSli
             set({
                 favorites: get().favorites.filter(favorite => favorite.idDrink !== recipe.idDrink)
             })
+            createNotificationSlice(set,get,api).showNotificaction({text:'Se elimino de favoritos', error:false })
         } else{
             // En caso de que el favorito no exista
             set({
                 favorites: [ ...get().favorites, recipe]
             })
+            createNotificationSlice(set,get,api).showNotificaction({text:'Se agrego a favoritos', error:false })
         }
         // Llamado a otro slice
         // Dspues del llamado al slice, se le deben de pasar los tres parametros: set,get,api
