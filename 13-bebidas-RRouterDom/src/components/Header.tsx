@@ -16,7 +16,7 @@ export default function Header() {
     // Comprobar si esta en la pagina de inicio
     const isHome = useMemo(() => location.pathname === '/' ,[location.pathname])
 
-    const {fetchCategories,categories,searchRecipes} = useAppStore()
+    const {fetchCategories,categories,searchRecipes,showNotificaction} = useAppStore()
 
     useEffect(() => {
         fetchCategories()
@@ -33,7 +33,7 @@ export default function Header() {
         e.preventDefault()
 
         if(Object.values(searchFilters).includes('')){
-            console.log('Todos los campos son obligatorios')
+            showNotificaction({text:'Todos los campos son obligatorios', error: true})
             return
         }
 
