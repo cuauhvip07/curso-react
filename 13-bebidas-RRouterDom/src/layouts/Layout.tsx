@@ -7,7 +7,7 @@ import Notification from "../components/Notification"
 
 
 export default function Layout() {
-  const {loadFromSorage, notification} = useAppStore()
+  const {loadFromSorage} = useAppStore()
   // Mandar a traer los favoritos
   useEffect(() => {
     loadFromSorage()
