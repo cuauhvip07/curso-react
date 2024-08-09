@@ -1,4 +1,5 @@
 
 import { sumar } from "./server"
 
-console.log(sumar())
+sumar()
+console.log('si')
