@@ -1,0 +1,14 @@
+// Obtener los archivos TS y pasarlos hacia el dist que se pasan a js
+
+{
+    "compilerOptions": { 
+        "outDir": "./dist",  // hacia donde van los archivos
+        "rootDir": "./src", // Donde los toma,
+        "lib": ["ESNext"], // La version de js que lo quieres conpilar
+        "strict": false,  // No permite ningun any
+        "sourceMap": true, // Opciones internas, ayudan con un debugger
+        "esModuleInterop": true, // poder importar librerias de communjs
+        "declaration": true, 
+    },
+    "include": ["src/**/*.ts"]
+}
