@@ -9,6 +9,9 @@
         "sourceMap": true, // Opciones internas, ayudan con un debugger
         "esModuleInterop": true, // poder importar librerias de communjs
         "declaration": true, 
+        // Estas instrucciones son para que se pueda conectar los decoradores de los modelos
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
     },
     "include": ["src/**/*.ts"]
 }
