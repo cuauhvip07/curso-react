@@ -11,7 +11,11 @@
         "declaration": true, 
         // Estas instrucciones son para que se pueda conectar los decoradores de los modelos
         "experimentalDecorators": true,
-        "emitDecoratorMetadata": true
+        "emitDecoratorMetadata": true,
+        // Esto es para poder guardar la informacion enviada desde el body de postman 
+        "target": "ESNext", // Version mas proxima
+        "moduleResolution": "NodeNext",
+        "module": "NodeNext"
     },
     "include": ["src/**/*.ts"]
 }

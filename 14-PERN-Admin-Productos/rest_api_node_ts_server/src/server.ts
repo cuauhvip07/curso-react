@@ -8,11 +8,15 @@ import db from './config/db'
 // 1. Creacion del server
 const server = express()
 
+//  4. Leer datos del formulario que se mandan desde postman
+server.use(express.json())
+
 // 2 .use es engloba todos los verbos http (get,post,delete,etc)
 server.use('/api/products',router)
 
 
-// 3. Concertar a la base de datos
+
+// 3. Conectar a la base de datos
 
 async function connectDB() {
     try {
@@ -28,5 +32,7 @@ async function connectDB() {
 }
 
 connectDB()
+
+
 
 export default server
