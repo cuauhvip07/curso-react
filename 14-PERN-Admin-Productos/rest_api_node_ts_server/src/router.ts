@@ -1,6 +1,8 @@
 
 import { Router } from 'express'
 import { createProduct } from './handlers/product'
+import { handleInputErrors } from './middleware'
+import { body } from 'express-validator'
 // import { body } from 'express-validator'  Validar en el router 
 
 const router = Router()
@@ -13,7 +15,16 @@ router.get('/', (req,res) => {
     res.json('Desde get')
 })
 
-router.post('/', createProduct)
+router.post('/', 
+    body('name').notEmpty().withMessage('El nombre del producto no puede ir vacio'),
+
+    body('price').
+        custom( value => value > 0).withMessage('Precio no valido').
+        isNumeric().withMessage('El valor debe ser numerico').
+        notEmpty().withMessage('El precio del producto no puede ir vacio'),
+    handleInputErrors,
+    createProduct
+)
 
 router.put('/', (req,res) => {
 
