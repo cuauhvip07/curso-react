@@ -1,6 +1,7 @@
 
 import { Router } from 'express'
 import { createProduct } from './handlers/product'
+// import { body } from 'express-validator'  Validar en el router 
 
 const router = Router()
 
