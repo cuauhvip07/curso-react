@@ -1,4 +1,12 @@
+import express from "express";
 
-export function sumar () {
-    console.log(2+2)
-}
+const server = express()
+
+// Routing 
+server.get('/', (req,res) => {
+    res.json('Hola mundo en express')
+})
+
+
+
+export default server
