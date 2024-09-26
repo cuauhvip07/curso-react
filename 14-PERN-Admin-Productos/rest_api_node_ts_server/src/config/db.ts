@@ -1,8 +1,13 @@
 import { Sequelize } from "sequelize";
+import dotenv from 'dotenv'
 
 // 5. Instalar dependencias y la conexion a la bd
 // Se le agrega esto a la url ?ssl=true para que no marque error
 
-const db = new Sequelize('postgresql://rest_api_node_ts_oj9n_user:ZzgRHR1UOhLuO9wOEDr7i2lwWU2yhPaf@dpg-crqca8aj1k6c738eejc0-a.oregon-postgres.render.com/rest_api_node_ts_oj9n?ssl=true')
+// 7. Se instala dotenv y se crea la variable de entorno en el .env
+
+dotenv.config()
+
+const db = new Sequelize(process.env.DATABASE_URL)
 
 export default db;
