@@ -1,16 +1,17 @@
 import express from "express";
 import { router } from "./router";
 import db from "./config/db";
+import colors from 'colors'
 
 // 6. Conectar a bd
 async function connectDB() {
     try {
         await db.authenticate()
         db.sync() // Agrega nuevas columnas a la bd en caso de requierilas
-        console.log('Conexion exitosa ala bd')
+        console.log(colors.blue('Conexion exitosa a la BD'))
     } catch (error) {
-        console.log(error)
-        console.log('Hubo un error en conectar a la bd')
+        // console.log(error)
+        console.log(colors.red('Hubo un error en conectar a la bd'))
     }
 }
 
