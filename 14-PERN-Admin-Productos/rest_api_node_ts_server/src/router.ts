@@ -9,6 +9,7 @@ router.get('/', (req,res) => {
     res.json('Desde get')
 })
 
+// 10. Se pasa hacia una funcion aparte
 router.post('/', createProduct)
 
 router.put('/', (req,res) => {

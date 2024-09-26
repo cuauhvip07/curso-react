@@ -1,5 +1,7 @@
 import { Table, Column, Model, DataType, Default} from 'sequelize-typescript'
 
+// 9. Creacion del modelo
+
 @Table({
     tableName: 'products'
 })
