@@ -1,4 +1,5 @@
-import { Sequelize } from "sequelize";
+// 8. Se instala sequilize-typescript para tener los decoradores
+import { Sequelize } from "sequelize-typescript";
 import dotenv from 'dotenv'
 
 // 5. Instalar dependencias y la conexion a la bd
@@ -8,6 +9,8 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const db = new Sequelize(process.env.DATABASE_URL)
+const db = new Sequelize(process.env.DATABASE_URL, { // Se importan los modelos
+    models: [__dirname + '/../models/**/*.ts']
+})
 
 export default db;
