@@ -1,6 +1,7 @@
 import { Router } from 'express'
 
 export const router = Router()
+// 4. Creacion del router (tambien se puede con server)
 
 // Routing 
 router.get('/', (req,res) => {
