@@ -20,6 +20,10 @@ connectDB()
 // 1. Creacion del server y pasarlo al index
 const server = express()
 
+// 12. Leer datos del formulario -> Habilita la lectura
+server.use(express.json())
+
+
 // 3. Crear archivo de rutas y pasarlas
 // .use() ejecuta en cada uno de los router
 // Se pasan los parametros
