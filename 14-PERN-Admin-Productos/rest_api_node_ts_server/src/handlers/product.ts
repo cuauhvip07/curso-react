@@ -7,14 +7,14 @@ import Product from "../models/Product.model"
 
 export const createProduct = async (req : Request, res: Response) => {
 
-    // 13. Validacion
-    await check('name').notEmpty().withMessage('El nombre del producto no puede ir vacio').run(req)
+    // // 13. Validacion
+    // await check('name').notEmpty().withMessage('El nombre del producto no puede ir vacio').run(req)
 
-    await check('price')
-        .notEmpty().withMessage('El precio no puede ir vacio')
-        .isNumeric().withMessage('Valor no valido')
-        .custom(valor => valor > 0).withMessage('Precio no valido')
-    .run(req)
+    // await check('price')
+    //     .notEmpty().withMessage('El precio no puede ir vacio')
+    //     .isNumeric().withMessage('Valor no valido')
+    //     .custom(valor => valor > 0).withMessage('Precio no valido')
+    // .run(req)
 
     let errors = validationResult(req)
     if(!errors.isEmpty()){
