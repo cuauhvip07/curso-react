@@ -16,13 +16,19 @@ export const createProduct = async (req : Request, res: Response) => {
     //     .custom(valor => valor > 0).withMessage('Precio no valido')
     // .run(req)
 
-    let errors = validationResult(req)
-    if(!errors.isEmpty()){
-        return res.status(400).json({errors: errors.array()})
-    }
+    // Este codigo de validacion se pasa hacia el middleware en el paso 14
+
+    // let errors = validationResult(req)
+    // if(!errors.isEmpty()){
+    //     return res.status(400).json({errors: errors.array()})
+    // } 
     
     // en el server se pone para habilitar la lectura del req.body, si no se pone marca undefinded
-    const product = await Product.create(req.body)
-   
-    res.json({data: product})
+    
+    try {
+        const product = await Product.create(req.body)
+        res.json({data: product})
+    } catch (error) {
+        console.log(error)
+    }
 }
