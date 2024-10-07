@@ -1,15 +1,19 @@
 import { Router } from 'express'
-import { createProduct } from './handlers/product'
-import { body } from 'express-validator'
+import { createProduct, getProductById, getProducts } from './handlers/product'
+import { body, param } from 'express-validator'
 import { handleInputErrors } from './middleware'
 
 export const router = Router()
 // 4. Creacion del router (tambien se puede con server)
 
 // Routing 
-router.get('/', (req,res) => {
-    res.json('Desde get')
-})
+router.get('/', getProducts)
+
+router.get('/:id', 
+    param('id').isInt().withMessage('ID no valido'), // params ya que es un parametro
+    handleInputErrors,
+    getProductById
+)
 
 // 10. Se pasa hacia una funcion aparte
 router.post('/', 
