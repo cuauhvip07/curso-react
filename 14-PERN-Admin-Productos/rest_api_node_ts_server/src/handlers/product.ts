@@ -72,7 +72,7 @@ export const createProduct = async (req : Request, res: Response) => {
 export const updateProduct = async (req : Request,res : Response) => {
 
     try {
-        // params -> Parametro que se manda del id
+        // params -> Parametro que se manda del id de la url
         // id -> Nombre que se le asigna en el routerx
        const { id } = req.params
        const product = await Product.findByPk(id)
@@ -86,6 +86,28 @@ export const updateProduct = async (req : Request,res : Response) => {
        await product.save()
 
        res.json({data: product})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+// PATCH -> Solo remplaza los valores que le mandas, no elimina los demas valores
+export const updateAvailability = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params
+        const product = await Product.findByPk(id)
+
+        if(!product){
+            return res.status(404).json({error:'Producto no encontrado'})
+        }
+
+        // dataValues -> Te trae el valor de tu consulta que hagas en tu request
+        // Aqui se cambia la disponibilidad de forma automatica
+        product.availability = !product.dataValues.availability
+        await product.save()
+
+        res.json({data: product})
+
     } catch (error) {
         console.log(error)
     }
