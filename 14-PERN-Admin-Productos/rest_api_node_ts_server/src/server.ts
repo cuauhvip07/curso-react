@@ -29,4 +29,6 @@ server.use(express.json())
 // Se pasan los parametros
 server.use('/api/products', router) 
 
+
+
 export default server
