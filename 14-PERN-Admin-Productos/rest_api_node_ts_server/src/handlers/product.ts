@@ -1,5 +1,5 @@
 
-import { Request, Response } from "express"
+import { Request, Response, NextFunction } from "express"
 import Product from "../models/Product.model"
 
 export const getProducts = async (req: Request, res: Response) => {
@@ -20,28 +20,29 @@ export const getProducts = async (req: Request, res: Response) => {
     }
 }
 
-export const getProductById = async (req: Request, res: Response) => {
-    
+export const getProductById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        // params -> Parametro que se manda del id
-        // id -> Nombre que se le asigna en el routerx
-       const { id } = req.params
-       const product = await Product.findByPk(id)
+        const { id } = req.params;
+        const product = await Product.findByPk(id);
 
-       if(!product){
-        return res.status(404).json({error: 'Producto no encontrado'})
-       }
+        if (!product) {
+            // Enviar respuesta 404 si no se encuentra el producto
+            res.status(404).json({ error: 'Producto no encontrado' });
+            return;
+        }
 
-       res.json({data: product})
+        // Enviar respuesta con el producto
+        res.json({ data: product });
     } catch (error) {
-        console.log(error)
+        // Delegar el manejo de errores al middleware de manejo de errores
+        next(error);
     }
-}
+};
 
 
 // 11. Se crea la funcion
 
-export const createProduct = async (req : Request, res: Response) => {
+export const createProduct = async (req : Request, res: Response, next: NextFunction) => {
 
     // // 13. Validacion
     // await check('name').notEmpty().withMessage('El nombre del producto no puede ir vacio').run(req)
@@ -66,10 +67,11 @@ export const createProduct = async (req : Request, res: Response) => {
         res.json({data: product})
     } catch (error) {
         console.log(error)
+        next(error)
     }
 }
 
-export const updateProduct = async (req : Request,res : Response) => {
+export const updateProduct = async (req : Request,res : Response, next: NextFunction) : Promise<void> => {
 
     try {
         // params -> Parametro que se manda del id de la url
@@ -77,9 +79,10 @@ export const updateProduct = async (req : Request,res : Response) => {
        const { id } = req.params
        const product = await Product.findByPk(id)
 
-       if(!product){
-        return res.status(404).json({error: 'Producto no encontrado'})
-       }
+        if(!product){
+            res.status(404).json({error: 'Producto no encontrado'})
+            return
+        }
 
        // Actualizar
        await product.update(req.body) // Modificaciones totales
@@ -88,17 +91,19 @@ export const updateProduct = async (req : Request,res : Response) => {
        res.json({data: product})
     } catch (error) {
         console.log(error)
+        next(error)
     }
 }
 
 // PATCH -> Solo remplaza los valores que le mandas, no elimina los demas valores
-export const updateAvailability = async (req: Request, res: Response) => {
+export const updateAvailability = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
     try {
         const { id } = req.params
         const product = await Product.findByPk(id)
 
         if(!product){
-            return res.status(404).json({error:'Producto no encontrado'})
+            res.status(404).json({error:'Producto no encontrado'})
+            return
         }
 
         // dataValues -> Te trae el valor de tu consulta que hagas en tu request
@@ -110,17 +115,19 @@ export const updateAvailability = async (req: Request, res: Response) => {
 
     } catch (error) {
         console.log(error)
+        next(error)
     }
 }
 
-export const deleteProduct = async (req: Request, res: Response) => {
+export const deleteProduct = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
 
     try {
         const {id} = req.params
         const product = await Product.findByPk(id)
 
         if(!product){
-            return res.status(404).json({error:'Producto no encontrado'})
+            res.status(404).json({error:'Producto no encontrado'})
+            return
         }
 
         await product.destroy()
@@ -128,5 +135,6 @@ export const deleteProduct = async (req: Request, res: Response) => {
 
     } catch (error) {
         console.log(error)
+        next(error)
     }
 }

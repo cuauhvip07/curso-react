@@ -11,6 +11,7 @@ dotenv.config()
 
 const db = new Sequelize(process.env.DATABASE_URL, { // Se importan los modelos
     models: [__dirname + '/../models/**/*.ts']
+    ,logging: false // ya no manda nada a la consola las consultas de sql
 })
 
 export default db;
