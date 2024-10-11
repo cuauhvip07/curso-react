@@ -25,6 +25,10 @@ describe('GET /api', () => {
         // toMatch -> es una expresion regular
         expect(res.headers['content-type']).toMatch(/json/) // Saber si es un json
         
+        // console.log(res.text) // No puedes entrar al valor del arreglo
+        // console.log(res.body) // Permite entrar al objeto
+
+        expect(res.body.msg).toBe('Desde API')
 
     })
 })
