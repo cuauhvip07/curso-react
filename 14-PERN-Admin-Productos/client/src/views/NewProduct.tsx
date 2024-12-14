@@ -1,6 +1,7 @@
 
 import { Link, Form, useActionData, ActionFunctionArgs } from "react-router-dom"
 import ErrorMessage from "../components/ErrorMessage"
+import { addProduct } from "../services/ProductService"
 
 
 export async function action ({request} : ActionFunctionArgs){ // Request es ncesario
@@ -17,8 +18,10 @@ export async function action ({request} : ActionFunctionArgs){ // Request es nce
     return error // Cuando retornas algo, estan disponibles en el componente (Antes del return)
   }
 
+  addProduct(data)
 
-  return {}
+
+  return {} // Se debe de retornar algo obligatoriamente
 }
 
 
