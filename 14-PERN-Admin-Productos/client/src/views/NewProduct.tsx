@@ -1,14 +1,35 @@
 
-import { Link, Form } from "react-router-dom"
+import { Link, Form, useActionData } from "react-router-dom"
 
 
-export async function action (){
-  console.log('Desde action')
+export async function action ({request}){ // Request es ncesario
+  // Object.fromEntries Ayuda acceder a la informacion del formData
+  // request.formData() trae la informacion del formulario pero se necesarita la funcion del objet
+  const data = Object.fromEntries(await request.formData())
+  
+  let error = ''
+  if(Object.values(data).includes('')){
+    error = 'Todos los campos son obligatorios'
+  }
+
+  if(error.length){
+    return error // Cuando retornas algo, estan disponibles en el componente (Antes del return)
+  }
+  
+
   return {}
 }
 
 
+
 export default function NewProduct() {
+
+  // const error = useActionData() // Traer el error que se retorno
+
+  const error2 = useActionData()
+  console.log(error2)
+  
+
   return (
     <>
       <div className=" flex justify-between">
