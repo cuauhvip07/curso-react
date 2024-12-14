@@ -1,8 +1,9 @@
 
-import { Link, Form, useActionData } from "react-router-dom"
+import { Link, Form, useActionData, ActionFunctionArgs } from "react-router-dom"
+import ErrorMessage from "../components/ErrorMessage"
 
 
-export async function action ({request}){ // Request es ncesario
+export async function action ({request} : ActionFunctionArgs){ // Request es ncesario
   // Object.fromEntries Ayuda acceder a la informacion del formData
   // request.formData() trae la informacion del formulario pero se necesarita la funcion del objet
   const data = Object.fromEntries(await request.formData())
@@ -15,7 +16,7 @@ export async function action ({request}){ // Request es ncesario
   if(error.length){
     return error // Cuando retornas algo, estan disponibles en el componente (Antes del return)
   }
-  
+
 
   return {}
 }
@@ -24,10 +25,7 @@ export async function action ({request}){ // Request es ncesario
 
 export default function NewProduct() {
 
-  // const error = useActionData() // Traer el error que se retorno
-
-  const error2 = useActionData()
-  console.log(error2)
+  const error = useActionData() as string // Traer el error que se retorno
   
 
   return (
@@ -41,6 +39,12 @@ export default function NewProduct() {
           Volver a productos
         </Link>
       </div>
+
+      {error && 
+        <ErrorMessage>
+          {error}
+        </ErrorMessage>
+      }
 
       <Form
         className="mt-10"
