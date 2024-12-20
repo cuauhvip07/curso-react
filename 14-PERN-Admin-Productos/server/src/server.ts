@@ -3,6 +3,7 @@ import cors, { CorsOptions} from 'cors'
 import { router } from "./router";
 import db from "./config/db";
 import colors from 'colors'
+import morgan from 'morgan'
 
 // 6. Conectar a bd
 async function connectDB() {
@@ -37,6 +38,8 @@ const corsOptions : CorsOptions = {
     } 
 }
 server.use(cors(corsOptions)) // Ejecuta en todo tipo de peticion el .use
+
+server.use(morgan('dev'))
 
 // 3. Crear archivo de rutas y pasarlas
 // .use() ejecuta en cada uno de los router
