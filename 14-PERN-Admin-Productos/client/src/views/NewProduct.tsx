@@ -1,5 +1,5 @@
 
-import { Link, Form, useActionData, ActionFunctionArgs } from "react-router-dom"
+import { Link, Form, useActionData, ActionFunctionArgs, redirect } from "react-router-dom"
 import ErrorMessage from "../components/ErrorMessage"
 import { addProduct } from "../services/ProductService"
 
@@ -18,10 +18,10 @@ export async function action ({request} : ActionFunctionArgs){ // Request es nce
     return error // Cuando retornas algo, estan disponibles en el componente (Antes del return)
   }
 
-  addProduct(data)
+  await addProduct(data) 
 
 
-  return {} // Se debe de retornar algo obligatoriamente
+  return redirect('/') // Se debe de retornar algo obligatoriamente o redireccionar al usuario
 }
 
 
