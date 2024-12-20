@@ -1,5 +1,17 @@
 
 import { Link } from "react-router-dom"
+import { getProducts } from "../services/ProductService"
+
+export async function loader(){
+  // Se obtienen los datos antes de que el componente este listo
+  // Siempre debe de retornar algo
+  const products = await getProducts()
+  console.log(products)
+
+  // Se ocupa un action especial cuando se ocupa un loader
+  
+  return {}
+}
 
 
 export default function Products() {
