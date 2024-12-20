@@ -1,4 +1,5 @@
 import express from "express";
+import cors, { CorsOptions} from 'cors'
 import { router } from "./router";
 import db from "./config/db";
 import colors from 'colors'
@@ -23,6 +24,19 @@ const server = express()
 // 12. Leer datos del formulario -> Habilita la lectura
 server.use(express.json())
 
+// Permitir conexiones
+const corsOptions : CorsOptions = {
+    // callback permite la conexión o negar la conexión
+    origin: function(origin, callback) { // Quien me esta enviando la petición
+        if(origin === process.env.FRONTEND_URL){
+            callback(null,true)
+        }
+        else{
+            callback(new Error('Error de CORS'),false)
+        }
+    } 
+}
+server.use(cors(corsOptions)) // Ejecuta en todo tipo de peticion el .use
 
 // 3. Crear archivo de rutas y pasarlas
 // .use() ejecuta en cada uno de los router
