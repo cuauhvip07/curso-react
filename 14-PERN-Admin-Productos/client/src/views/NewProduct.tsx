@@ -28,7 +28,7 @@ export async function action ({request} : ActionFunctionArgs){ // Request es nce
 
 export default function NewProduct() {
 
-  const error = useActionData() as string // Traer el error que se retorno
+  const error = useActionData() as string // UsaruseActionData -> Querer tener el resultado de una action (formulario)
   
 
   return (
