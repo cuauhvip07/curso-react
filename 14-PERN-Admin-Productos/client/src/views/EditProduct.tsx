@@ -1,7 +1,12 @@
 
-import { Link, Form, useActionData, ActionFunctionArgs, redirect } from "react-router-dom"
+import { Link, Form, useActionData, ActionFunctionArgs, redirect, LoaderFunctionArgs } from "react-router-dom"
 import ErrorMessage from "../components/ErrorMessage"
 import { addProduct } from "../services/ProductService"
+
+// Traer los parametros del router
+export async function loader({params} : LoaderFunctionArgs){
+    console.log(params.id)
+}
 
 
 export async function action ({request} : ActionFunctionArgs){ // Request es ncesario
