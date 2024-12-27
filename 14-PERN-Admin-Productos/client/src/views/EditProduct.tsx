@@ -1,7 +1,7 @@
 
 import { Link, Form, useActionData, ActionFunctionArgs, redirect, LoaderFunctionArgs, useLoaderData } from "react-router-dom"
 import ErrorMessage from "../components/ErrorMessage"
-import { addProduct, getProductbyId } from "../services/ProductService"
+import { addProduct, getProductbyId, updateProduct } from "../services/ProductService"
 import { Product } from "../types"
 
 // Traer los parametros del router
@@ -21,7 +21,7 @@ export async function loader({params} : LoaderFunctionArgs){
 }
 
 
-export async function action ({request} : ActionFunctionArgs){ // Request es ncesario
+export async function action ({request,params} : ActionFunctionArgs){ // Request es ncesario
   // Object.fromEntries Ayuda acceder a la informacion del formData
   // request.formData() trae la informacion del formulario pero se necesarita la funcion del objet
   const data = Object.fromEntries(await request.formData())
@@ -35,10 +35,14 @@ export async function action ({request} : ActionFunctionArgs){ // Request es nce
     return error // Cuando retornas algo, estan disponibles en el componente (Antes del return)
   }
 
-  await addProduct(data) 
+  if(params.id !== undefined){
+    await updateProduct(data, +params.id) 
+    return redirect('/') // Se debe de retornar algo obligatoriamente o redireccionar al usuario
+  }
+  
 
 
-  return redirect('/') // Se debe de retornar algo obligatoriamente o redireccionar al usuario
+  
 }
 
 
