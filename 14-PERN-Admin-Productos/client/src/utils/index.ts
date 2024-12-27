@@ -5,3 +5,7 @@ export function formarCorrency(amount: number){
         currency:'USD'
     }).format(amount)
 }
+
+export function toBoolean(str: String){
+    return str.toLowerCase() === "true"
+}
