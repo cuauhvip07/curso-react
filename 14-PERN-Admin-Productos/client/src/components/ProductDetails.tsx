@@ -35,7 +35,19 @@ export default function ProductDetails({product} : ProductDetailsProps) {
             {formarCorrency(product.price)}
         </td>
         <td className="p-3 text-lg text-gray-800">
-            {isAvailable ? 'Disponible' : 'No disponible'}
+
+            <form action="POST">
+                <button
+                    type="button"
+                    name="availability"
+                    value={product.availability.toString()}
+                    className={`${isAvailable ? 'text-black' : 'text-red-600 '} rounded-lg p-2 text-xs uppercase font-bold w-full border border-black-100 hover:cursor-pointer`}
+                >
+                    {isAvailable ? 'Disponible' : 'No disponible'}
+                </button>
+            </form>
+
+            
         </td>
         <td className="p-3 text-lg text-gray-800 ">
             <div className=" flex gap-2 items-center">

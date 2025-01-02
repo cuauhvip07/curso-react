@@ -13,6 +13,10 @@ export async function loader(){
   return products
 }
 
+export async function action(){
+  console.log('desde action actualzar')
+  return {}
+}
 
 export default function Products() {
 
