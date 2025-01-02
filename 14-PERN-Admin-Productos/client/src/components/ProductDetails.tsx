@@ -1,4 +1,4 @@
-import { useNavigate, Form, ActionFunctionArgs, redirect } from "react-router-dom"
+import { useNavigate, Form, ActionFunctionArgs, redirect, useFetcher } from "react-router-dom"
 import { Product } from "../types"
 import { formarCorrency } from "../utils"
 import { deleteProuduct } from "../services/ProductService"
@@ -25,6 +25,8 @@ export default function ProductDetails({product} : ProductDetailsProps) {
 
     const isAvailable = product.availability
 
+    const fetcher = useFetcher() // Poder actualizar informacion sin reedireccionar en la pagina
+
   return (
 
     <tr className="border-b ">
@@ -36,16 +38,16 @@ export default function ProductDetails({product} : ProductDetailsProps) {
         </td>
         <td className="p-3 text-lg text-gray-800">
 
-            <form action="POST">
+            <fetcher.Form action='POST'>
                 <button
                     type="button"
-                    name="availability"
-                    value={product.availability.toString()}
+                    name='id'
+                    value={product.id}
                     className={`${isAvailable ? 'text-black' : 'text-red-600 '} rounded-lg p-2 text-xs uppercase font-bold w-full border border-black-100 hover:cursor-pointer`}
                 >
                     {isAvailable ? 'Disponible' : 'No disponible'}
                 </button>
-            </form>
+            </fetcher.Form>
 
             
         </td>
