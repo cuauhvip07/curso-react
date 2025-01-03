@@ -1,6 +1,21 @@
 import express from 'express'
 import colors from 'colors'
 import morgan from 'morgan'
+import { db } from './config/db'
+
+// Despues de poner la variable de entonor y cración de la bd, se debe de conectar 
+
+async function connectDB(){
+    try {
+        await db.authenticate()
+        db.sync() // Nos crea las tablas y columnas
+        console.log(colors.blue.bold('Conexión exitosa a la BD'))
+    } catch (error) {
+        console.log(colors.red.bold('Fallo la conexión a la BD'))
+    }
+}
+
+connectDB()
 
 const app = express()
 
