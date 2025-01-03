@@ -2,6 +2,7 @@ import express from 'express'
 import colors from 'colors'
 import morgan from 'morgan'
 import { db } from './config/db'
+import budgetRouter from './routes/budgetRouter'
 
 // Despues de poner la variable de entonor y cración de la bd, se debe de conectar 
 
@@ -23,6 +24,8 @@ app.use(morgan('dev')) // Informacion detalla del log
 
 
 app.use(express.json()) // Poder leer los formularios
+
+app.use('/api/budgets', budgetRouter)
 
 
 export default app
