@@ -10,12 +10,12 @@ class Budget extends Model{
     @Column({
         type: DataType.STRING(100) // Este es de sequelize
     })
-    name: String // Este es el tipado de Typescript
+    declare name: String // Este es el tipado de Typescript
 
     @Column({
         type: DataType.DECIMAL
     })
-    amount: number
+    declare amount: number // declare sirve para que no nos de error y que ya esta definido en sequelize
 
 }
 
