@@ -4,6 +4,8 @@ import Budget from "../models/Budget"
 
 export class BudgetController{
 
+
+
     static getAll = async (req: Request, res: Response) => {
         try {
             const budgets = await Budget.findAll({
@@ -22,6 +24,8 @@ export class BudgetController{
         }
     }
 
+
+
     static create = async (req : Request, res: Response) => {
         try {
             const budget = new Budget(req.body)
@@ -34,15 +38,36 @@ export class BudgetController{
         }
     }
 
+
+
     static getById = async (req: Request, res: Response) => {
-        console.log('Desde GET ID api/budget')
+        
+        try {
+            const {id} = req.params
+            const budget = await Budget.findByPk(id)
+
+            if(!budget){
+                const error = new Error('Presupuesto no encontrado')
+                res.status(404).json({error:error.message})
+                return
+            }
+            res.json(budget)
+        } catch (error) {
+            res.status(500).json('Hubo un error')
+        }
     }
+
+
 
     static updateById = async (req: Request, res: Response) => {
         console.log('Desde PUT ID api/budget')
     }
 
+
+
     static deleteById = async (req: Request, res: Response) => {
         console.log('Desde DELETE ID api/budget')
     }
+
+
 }
