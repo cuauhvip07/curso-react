@@ -60,7 +60,22 @@ export class BudgetController{
 
 
     static updateById = async (req: Request, res: Response) => {
-        console.log('Desde PUT ID api/budget')
+        
+        try {
+            const {id} = req.params
+            const budget = await Budget.findByPk(id)
+
+            if(!budget){
+                const error = new Error('Presupuesto no encontrado')
+                res.status(404).json({error:error.message})
+            }
+
+            // Escribir los cambios del body
+            await budget.update(req.body)
+            res.json('Presupuesto actualizado correctamente')
+        } catch (error) {
+            res.status(500).json('Hubo un error')
+        }
     }
 
 
