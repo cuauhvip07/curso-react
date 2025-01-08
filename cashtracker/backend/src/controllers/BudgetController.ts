@@ -5,7 +5,21 @@ import Budget from "../models/Budget"
 export class BudgetController{
 
     static getAll = async (req: Request, res: Response) => {
-        console.log('Desde api/budget')
+        try {
+            const budgets = await Budget.findAll({
+                order:[
+                    ['createdAt','DESC']
+                ],
+                // TODO: Filtrar por el usuario autenticado
+                // limit:1
+                // where: {
+                //     name:'Vacaciones'
+                // }
+            })
+            res.json(budgets)
+        } catch (error) {
+            res.status(500).json({error:'Hubo un error'})
+        }
     }
 
     static create = async (req : Request, res: Response) => {
