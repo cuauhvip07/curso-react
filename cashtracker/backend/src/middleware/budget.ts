@@ -1,5 +1,5 @@
 import { Request, Response,NextFunction } from "express"
-import { param,validationResult } from "express-validator"
+import { param,validationResult, body } from "express-validator"
 import Budget from "../models/Budget"
 
 
@@ -49,4 +49,19 @@ export const validateBudgetExist = async (req: Request, res: Response, next: Nex
     }
 
     
+}
+
+export const validateBudgetInput = async (req: Request, res: Response, next: NextFunction) => {
+
+    await body('name')
+        .notEmpty().withMessage('El nombre del presupuesto es obligatorio')
+    .run(req)
+
+    await body('amount')
+        .notEmpty().withMessage('La cantidad del presupuesto no puede ir vacia')
+        .isNumeric().withMessage('La cantidad debe ser un numero')
+        .custom(value => value > 0).withMessage('La cantidad debe ser mayor a cero')
+    .run(req)
+
+    next()
 }

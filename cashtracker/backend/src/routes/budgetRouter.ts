@@ -2,7 +2,7 @@ import { Router } from "express";
 import { body, param } from "express-validator";
 import { BudgetController } from "../controllers/BudgetController";
 import { handleInputErrors } from "../middleware/validation";
-import { validateBudgetExist, validateBudgetId } from "../middleware/budget";
+import { validateBudgetExist, validateBudgetId, validateBudgetInput } from "../middleware/budget";
 
 
 const router = Router()
@@ -21,12 +21,8 @@ router.get('/:budgetId',
 
 
 router.post('/', 
-    body('name')
-        .notEmpty().withMessage('El nombre del presupuesto es obligatorio'),
-    body('amount')
-        .notEmpty().withMessage('La cantidad del presupuesto no puede ir vacia')
-        .isNumeric().withMessage('La cantidad debe ser un numero')
-        .custom(value => value > 0).withMessage('La cantidad debe ser mayor a cero'),
+    
+    validateBudgetInput,
     handleInputErrors,
     BudgetController.create
 )
@@ -36,12 +32,13 @@ router.post('/',
 router.put('/:budgetId', 
     
     
-    body('name')
-        .notEmpty().withMessage('El nombre del presupuesto es obligatorio'),
-    body('amount')
-        .notEmpty().withMessage('La cantidad del presupuesto no puede ir vacia')
-        .isNumeric().withMessage('La cantidad debe ser un numero')
-        .custom(value => value > 0).withMessage('La cantidad debe ser mayor a cero'),
+    // body('name')
+    //     .notEmpty().withMessage('El nombre del presupuesto es obligatorio'),
+    // body('amount')
+    //     .notEmpty().withMessage('La cantidad del presupuesto no puede ir vacia')
+    //     .isNumeric().withMessage('La cantidad debe ser un numero')
+    //     .custom(value => value > 0).withMessage('La cantidad debe ser mayor a cero'), En lugar de tener todo este codigo
+    validateBudgetInput,
     handleInputErrors,
     BudgetController.updateById
 )
