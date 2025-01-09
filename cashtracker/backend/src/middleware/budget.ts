@@ -14,7 +14,7 @@ declare global{
 
 export const validateBudgetId = async (req: Request, res: Response, next: NextFunction) => {
 
-    await param('id')
+    await param('budgetId')
         .isInt().withMessage('ID no valido')
         .custom(value => value > 0).withMessage('ID no valido')
     .run(req)
@@ -32,8 +32,8 @@ export const validateBudgetExist = async (req: Request, res: Response, next: Nex
 
      
     try {
-        const {id} = req.params
-        const budget = await Budget.findByPk(id)
+        const {budgetId} = req.params
+        const budget = await Budget.findByPk(budgetId)
 
         if(!budget){
             const error = new Error('Presupuesto no encontrado')

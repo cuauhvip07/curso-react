@@ -7,12 +7,15 @@ import { validateBudgetExist, validateBudgetId } from "../middleware/budget";
 
 const router = Router()
 
+router.param('budgetId',validateBudgetId) // Valida por id y pone el middleware a las rutas que tengan id
+router.param('budgetId',validateBudgetExist)
+
 router.get('/', BudgetController.getAll)
 
 
-router.get('/:id',
-    validateBudgetId,
-    validateBudgetExist,
+router.get('/:budgetId',
+    // validateBudgetId, Ya no se pone aqui ya que esta en el router.param
+    //validateBudgetExist,
     BudgetController.getById
 )
 
@@ -30,9 +33,9 @@ router.post('/',
 
 
 
-router.put('/:id', 
-    validateBudgetId,
-    validateBudgetExist,
+router.put('/:budgetId', 
+    
+    
     body('name')
         .notEmpty().withMessage('El nombre del presupuesto es obligatorio'),
     body('amount')
@@ -43,15 +46,7 @@ router.put('/:id',
     BudgetController.updateById
 )
 
-
-
-router.delete('/:id', 
-
-    validateBudgetId,
-    validateBudgetExist,
-    BudgetController.deleteById
-
-)
+router.delete('/:budgetId',BudgetController.deleteById)
 
 
 
