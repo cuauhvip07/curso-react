@@ -32,6 +32,7 @@ router.post('/',
 
 router.put('/:id', 
     validateBudgetId,
+    validateBudgetExist,
     body('name')
         .notEmpty().withMessage('El nombre del presupuesto es obligatorio'),
     body('amount')
