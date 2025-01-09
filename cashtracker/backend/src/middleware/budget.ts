@@ -1,5 +1,16 @@
 import { Request, Response,NextFunction } from "express"
 import { param,validationResult } from "express-validator"
+import Budget from "../models/Budget"
+
+
+// Se delcara de manera global para que no haya error en req.budget que se creo
+declare global{
+    namespace Express {
+        interface Request{
+            budget?: Budget
+        }
+    }
+}
 
 export const validateBudgetId = async (req: Request, res: Response, next: NextFunction) => {
 
@@ -15,4 +26,27 @@ export const validateBudgetId = async (req: Request, res: Response, next: NextFu
         return
     }
     next()
+}
+
+export const validateBudgetExist = async (req: Request, res: Response, next: NextFunction) => {
+
+     
+    try {
+        const {id} = req.params
+        const budget = await Budget.findByPk(id)
+
+        if(!budget){
+            const error = new Error('Presupuesto no encontrado')
+            res.status(404).json({error:error.message})
+            return
+        }
+
+        req.budget = budget
+        next()
+
+    } catch (error) {
+        res.status(500).json('Hubo un error')
+    }
+
+    
 }

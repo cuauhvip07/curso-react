@@ -42,19 +42,8 @@ export class BudgetController{
 
     static getById = async (req: Request, res: Response) => {
         
-        try {
-            const {id} = req.params
-            const budget = await Budget.findByPk(id)
-
-            if(!budget){
-                const error = new Error('Presupuesto no encontrado')
-                res.status(404).json({error:error.message})
-                return
-            }
-            res.json(budget)
-        } catch (error) {
-            res.status(500).json('Hubo un error')
-        }
+        // El codigo de traer los datos se paso al middleware de budget
+        res.json(req.budget)
     }
 
 
@@ -83,7 +72,7 @@ export class BudgetController{
     static deleteById = async (req: Request, res: Response) => {
         
         try {
-            
+
             const {id} = req.params
             const budget = await Budget.findByPk(id)
             
