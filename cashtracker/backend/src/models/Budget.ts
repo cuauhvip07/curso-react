@@ -1,5 +1,6 @@
 import {Table,Column,DataType,HasMany,Model} from 'sequelize-typescript'
-import Expense from './expense'
+import Expense from './Expense'
+
 
 @Table({
     tableName: 'budgets'
