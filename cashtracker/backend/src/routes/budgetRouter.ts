@@ -4,7 +4,7 @@ import { BudgetController } from "../controllers/BudgetController";
 import { handleInputErrors } from "../middleware/validation";
 import { validateBudgetExist, validateBudgetId, validateBudgetInput } from "../middleware/budget";
 import { ExpenseController } from "../controllers/ExpenseController";
-import { validateExpenseId, validateExpenseInput } from "../middleware/expense";
+import { validateExpenseExiste, validateExpenseId, validateExpenseInput } from "../middleware/expense";
 
 
 const router = Router()
@@ -13,6 +13,7 @@ router.param('budgetId',validateBudgetId) // Valida por id y pone el middleware 
 router.param('budgetId',validateBudgetExist)
 
 router.param('expenseId', validateExpenseId)
+router.param('expenseId', validateExpenseExiste)
 
 router.get('/', BudgetController.getAll)
 
