@@ -64,7 +64,12 @@ router.post('/:budgetId/expenses',
 
 
 router.get('/:budgetId/expenses/:expenseId',ExpenseController.getById)
-router.put('/:budgetId/expenses/:expenseId',ExpenseController.updateById)
+
+router.put('/:budgetId/expenses/:expenseId',
+    validateExpenseInput,
+    handleInputErrors,
+    ExpenseController.updateById
+)
 router.delete('/:budgetId/expenses/:expenseId',ExpenseController.deleteById)
 
 
