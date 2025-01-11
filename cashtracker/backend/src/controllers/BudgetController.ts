@@ -1,5 +1,6 @@
 import { request, Request, Response } from "express"
 import Budget from "../models/Budget"
+import Expense from "../models/Expense"
 
 
 export class BudgetController{
@@ -43,7 +44,10 @@ export class BudgetController{
     static getById = async (req: Request, res: Response) => {
         
         // El codigo de traer los datos se paso al middleware de budget
-        res.json(req.budget)
+        const budget = await Budget.findByPk(req.budget.id, {
+            include: [Expense]    // Traerse los gastos de un presuspuesto -> Usar la relacion
+        })
+        res.json(budget)
     }
 
 
