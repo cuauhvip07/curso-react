@@ -54,8 +54,6 @@ router.delete('/:budgetId',BudgetController.deleteById)
 
 // ROUTES FOR EXPENSES
 
-
-
 router.post('/:budgetId/expenses', 
     validateExpenseInput,
     handleInputErrors,
