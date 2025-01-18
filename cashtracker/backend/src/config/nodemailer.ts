@@ -1,16 +1,15 @@
-import nodemailer from 'nodemailer'
-import dotenv from 'dotenv'
-dotenv.config()
+// import nodemailer from 'nodemailer'
+// import dotenv from 'dotenv'
+// dotenv.config()
 
-const config = () => {
-    return {
-        host: process.env.EMAIL_HOST,
-        port: +process.env.EMAIL_PORT,
-        auth: {
-          user:  process.env.EMAIL_USER,
-          pass:  process.env.EMAIL_PASS
-        }
-      }
-}
 
-export const transport = nodemailer.createTransport(config());
+// // Looking to send emails in production? Check out our Email API/SMTP product!
+// export const transport = nodemailer.createTransport({
+//   host: "sandbox.smtp.mailtrap.io",
+//   port: 2525,
+//   auth: {
+//     user: "021900e817ea00",
+//     pass: "********8dcf"
+//   }
+// });
+
