@@ -19,3 +19,12 @@ export const validateCreateAccount = async (req: Request, Response: Response, ne
 
     next()
 }
+
+export const validateToken = async (req:Request, res:Response, next: NextFunction) => {
+
+    await body('token')
+        .notEmpty().isLength({min:6, max:6}).withMessage('Token no valido')
+    .run(req)
+
+    next()
+}
