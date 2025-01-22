@@ -28,3 +28,16 @@ export const validateToken = async (req:Request, res:Response, next: NextFunctio
 
     next()
 }
+
+export const validateInputs =  async (req:Request,res:Response,next:NextFunction) => {
+    await body('email')
+        .isEmail().withMessage('Email no valido')
+    .run(req)
+
+    await body('password')
+        .notEmpty().withMessage('El password es obligatorio')
+    .run(req)
+
+    next()
+
+}
