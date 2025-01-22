@@ -26,11 +26,11 @@ export class AuthController {
             user.token = generateToken()
             await user.save()
 
-            // await AuthEmail.sendConfirmationEmail({
-            //     name: user.dataValues.name,
-            //     email: user.dataValues.email,
-            //     token: user.dataValues.token
-            // })
+            await AuthEmail.sendConfirmationEmail({
+                name: user.dataValues.name,
+                email: user.dataValues.email,
+                token: user.dataValues.token
+            })
 
             res.json('Cuenta creada correctamente')
         } catch (error) {

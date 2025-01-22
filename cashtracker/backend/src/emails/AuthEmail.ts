@@ -1,4 +1,7 @@
 import nodemailer from 'nodemailer'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 type EmailType = {
     name: string,
@@ -10,11 +13,11 @@ type EmailType = {
 
 // Looking to send emails in production? Check out our Email API/SMTP product!
 var transport = nodemailer.createTransport({
-    host: "sandbox.smtp.mailtrap.io",
-    port: 2525, // Usa 587 o 465 para SSL
+    host: process.env.EMAIL_HOST,
+    port: +process.env.EMAIL_PORT, // Usa 587 o 465 para SSL
     auth: {
-      user: "021900e817ea00", // Usuario correcto
-      pass: "a6dfc8903a8dcf"  // Contraseña correcta
+      user: process.env.EMAIL_USER, // Usuario correcto
+      pass: process.env.EMAIL_PASS  // Contraseña correcta
     }
 });
   

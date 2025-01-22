@@ -1,6 +1,6 @@
-// import nodemailer from 'nodemailer'
-// import dotenv from 'dotenv'
-// dotenv.config()
+import nodemailer from 'nodemailer'
+import dotenv from 'dotenv'
+dotenv.config()
 
 
 // // Looking to send emails in production? Check out our Email API/SMTP product!
