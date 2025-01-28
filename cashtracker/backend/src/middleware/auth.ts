@@ -41,3 +41,13 @@ export const validateInputs =  async (req:Request,res:Response,next:NextFunction
     next()
 
 }
+
+export const validateEmail = async (req:Request, res:Response, next:NextFunction) => {
+    
+    await body('email')
+        .isEmail().withMessage('Email no valido')
+    .run(req)
+
+    next()
+
+}

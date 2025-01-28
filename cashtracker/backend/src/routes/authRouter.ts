@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { AuthController } from "../controllers/AuthController";
 import { handleInputErrors } from "../middleware/validation";
-import { validateCreateAccount, validateInputs, validateToken } from "../middleware/auth";
+import { validateCreateAccount, validateEmail, validateInputs, validateToken } from "../middleware/auth";
 import { limiter } from "../config/limiter";
 
 const router = Router()
@@ -25,6 +25,12 @@ router.post('/login',
     validateInputs,
     handleInputErrors,
     AuthController.login
+)
+
+router.post('/forgot-password',
+    validateEmail,
+    handleInputErrors,
+    AuthController.forgotPassword
 )
 
 
