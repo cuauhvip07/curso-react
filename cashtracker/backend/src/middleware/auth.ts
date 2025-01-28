@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 
 
@@ -43,9 +43,29 @@ export const validateInputs =  async (req:Request,res:Response,next:NextFunction
 }
 
 export const validateEmail = async (req:Request, res:Response, next:NextFunction) => {
-    
+
     await body('email')
         .isEmail().withMessage('Email no valido')
+    .run(req)
+
+    next()
+
+}
+
+export const validateTokenParam =  async (req:Request, res:Response, next:NextFunction) => {
+    
+    await param('token')
+        .notEmpty().isLength({min:6, max:6}).withMessage('Token no valido')
+    .run(req)
+
+    next()
+}
+
+export const validatePassword = async (req:Request, res:Response, next:NextFunction) => {
+
+    await body('password')
+        .isLength({min:8}).withMessage('El password es muy corto, mínimo 8 caracteres')
+        .notEmpty().withMessage('El password no puede ir vacio')
     .run(req)
 
     next()
