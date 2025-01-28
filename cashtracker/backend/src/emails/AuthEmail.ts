@@ -42,4 +42,23 @@ export class AuthEmail {
             console.log(error)
         }
     }
+
+    static sendPasswordResetToken = async (user : EmailType) => {
+        try {
+            const email = await transport.sendMail({
+                from: 'CashTracker <admin@demomailtrap.com>',
+                to: user.email,
+                subject: 'Cashtracker - Restablace tu password',
+                html: `
+                    <p>Hola: ${user.name}, has solicitado restablecer tu password</p>
+                    <p>Visita el siguiente enlace;</p>
+                    <a href="#">Restablacer password</a>
+                    <p>en ingresa el código <b>${user.token}</b></p>
+                `
+            })
+            console.log(email)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }

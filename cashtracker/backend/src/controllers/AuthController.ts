@@ -85,7 +85,24 @@ export class AuthController {
     }
 
     static forgotPassword = async (req:Request,res:Response) => {
-        res.json('DEsde forgot paswwrod')
+        const {email} = req.body
+        const user = await User.findOne({where:{email}})
+        if(!user){
+            const error = new Error('Usuario no encontrado')
+            res.status(404).json({error:error.message})
+            return
+        }
+        user.token = generateToken()
+        await user.save()
+
+        await AuthEmail.sendPasswordResetToken({
+            name: user.dataValues.name,
+            email: user.dataValues.email,
+            token: user.dataValues.token
+        })
+
+        res.json('Revisa tu email para instrucciones')
+
     }
 
 
