@@ -105,5 +105,17 @@ export class AuthController {
 
     }
 
+    static validateToken = async (req:Request,res:Response) => {
+        const {token} = req.body
+
+        const tokenExists = await User.findOne({where:{token}})
+        if(!tokenExists){
+            const error = new Error('Token no valido')
+            res.status(404).json({error:error.message})
+            return
+        }
+
+        res.json('Token valido')
+    }
 
 }
