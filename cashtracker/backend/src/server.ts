@@ -4,7 +4,6 @@ import morgan from 'morgan'
 import { db } from './config/db'
 import budgetRouter from './routes/budgetRouter'
 import authRouter from './routes/authRouter'
-import { limiter } from './config/limiter'
 
 
 // Despues de poner la variable de entonor y cración de la bd, se debe de conectar 

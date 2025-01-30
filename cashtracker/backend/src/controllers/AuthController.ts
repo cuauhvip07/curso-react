@@ -1,5 +1,5 @@
-import { Request,Response } from "express"
-import jtw, { decode } from 'jsonwebtoken'
+import { Request, Response } from "express"
+import jtw from 'jsonwebtoken'
 import User from "../models/User"
 import { checkPassword, hashPassword } from "../utils/auth"
 import { generateToken } from "../utils/token"
