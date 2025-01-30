@@ -157,7 +157,13 @@ export class AuthController {
 
         try {
             const decoded = jtw.verify(token,process.env.JWT_SECRET)
-            res.json(decoded)
+            if(typeof decoded === 'object' && decoded.id){ // No nos de error TS en decoded.id 
+                const user = await User.findByPk(decoded.id,{
+                    attributes:['id','name','email']    // Solo nos traega esos atributos
+                })
+                res.json(user)
+            }
+            
         } catch (error) {
             res.status(500).json({error:'Token no valido'})
         }
