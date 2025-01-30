@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { AuthController } from "../controllers/AuthController";
 import { handleInputErrors } from "../middleware/validation";
-import { validateCreateAccount, validateEmail, validateInputs, validatePassword, validateToken, validateTokenParam } from "../middleware/auth";
+import { authenticate, validateCreateAccount, validateEmail, validateInputs, validatePassword, validateToken, validateTokenParam } from "../middleware/auth";
 import { limiter } from "../config/limiter";
 
 const router = Router()
@@ -48,7 +48,7 @@ router.post('/reset-password/:token',
 )
 
 router.get('/user',
-
+    authenticate,
     AuthController.user
 )
 

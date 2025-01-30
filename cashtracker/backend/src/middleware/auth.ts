@@ -1,5 +1,15 @@
 import { body, param } from "express-validator";
 import { Request, Response, NextFunction } from "express";
+import jwt from 'jsonwebtoken'
+import User from "../models/User";
+
+declare global{
+    namespace Express {
+        interface Request{
+            user?: User
+        }
+    }
+}
 
 
 export const validateCreateAccount = async (req: Request, Response: Response, next: NextFunction) => {
@@ -71,3 +81,38 @@ export const validatePassword = async (req:Request, res:Response, next:NextFunct
     next()
 
 }
+
+export const authenticate = async (req:Request,res:Response,next:NextFunction) => {
+
+    const bearer = req.headers.authorization
+
+    if(!bearer){
+        const error = new Error('No autorizado')
+        res.status(401).json({error:error.message})
+        return
+    }
+
+    const [,token] = bearer.split(' ')
+    if(!token){
+        const error = new Error('Token no valido')
+        res.status(401).json({error:error.message})
+        return
+    }
+
+    try {
+        const decoded = jwt.verify(token,process.env.JWT_SECRET)
+        if(typeof decoded === 'object' && decoded.id){ // No nos de error TS en decoded.id 
+            req.user = await User.findByPk(decoded.id,{
+                attributes:['id','name','email']    // Solo nos traega esos atributos
+            })
+            next()
+        }
+        
+    } catch (error) {
+        res.status(500).json({error:'Token no valido'})
+    }
+
+    
+
+
+} 
