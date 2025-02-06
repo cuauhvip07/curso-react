@@ -3,6 +3,7 @@ import { AuthController } from "../controllers/AuthController";
 import { handleInputErrors } from "../middleware/validation";
 import { authenticate, validateCreateAccount, validateEmail, validateInputs, validatePassword, validateToken, validateTokenParam } from "../middleware/auth";
 import { limiter } from "../config/limiter";
+import { body } from "express-validator";
 
 const router = Router()
 
@@ -51,5 +52,15 @@ router.get('/user',
     authenticate,
     AuthController.user
 )
+
+router.post('/update-password',
+    authenticate,
+    body('current_password')
+        .notEmpty().withMessage('El password no puede ir vacio'),
+    validatePassword,
+    handleInputErrors,
+    AuthController.updateCurrentUserPassword
+)
+
 
 export default router
