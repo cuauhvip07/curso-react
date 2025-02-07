@@ -5,9 +5,12 @@ import { handleInputErrors } from "../middleware/validation";
 import { validateBudgetExist, validateBudgetId, validateBudgetInput } from "../middleware/budget";
 import { ExpenseController } from "../controllers/ExpenseController";
 import { validateExpenseExiste, validateExpenseId, validateExpenseInput } from "../middleware/expense";
+import { authenticate } from "../middleware/auth";
 
 
 const router = Router()
+
+router.use(authenticate) // Debe de estar autenticado el usuario
 
 router.param('budgetId',validateBudgetId) // Valida por id y pone el middleware a las rutas que tengan id
 router.param('budgetId',validateBudgetExist)
