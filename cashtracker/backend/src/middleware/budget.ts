@@ -65,3 +65,14 @@ export const validateBudgetInput = async (req: Request, res: Response, next: Nex
 
     next()
 }
+
+export const hasAcces = async (req: Request, res: Response, next: NextFunction) => {
+    
+    if(req.budget.userId !== req.user.id){
+        const error = new Error('Acción no valida')
+        res.status(401).json({error:error.message})
+        return
+    }
+
+    next()
+}

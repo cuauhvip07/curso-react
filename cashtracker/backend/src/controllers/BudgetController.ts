@@ -46,7 +46,10 @@ export class BudgetController{
         const budget = await Budget.findByPk(req.budget.id, {
             include: [Expense]    // Traerse los gastos de un presuspuesto -> Usar la relacion
         })
-        res.json(budget)
+        res.json({
+            budget:req.budget,
+            user:req.user
+        })
     }
 
 
