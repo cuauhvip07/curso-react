@@ -13,11 +13,9 @@ export class BudgetController{
                 order:[
                     ['createdAt','DESC']
                 ],
-                // TODO: Filtrar por el usuario autenticado
-                // limit:1
-                // where: {
-                //     name:'Vacaciones'
-                // }
+                where: {
+                    userId: req.user.id
+                }
             })
             res.json(budgets)
         } catch (error) {
