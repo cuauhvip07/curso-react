@@ -1,9 +1,17 @@
-
+import Image from "next/image" // La muestra con buena calidad y ligera
 
 export default function Logo() {
     return (
 
-        <img src="/logo.svg" alt="Logo CashTracker" width={400} height={100}/>
+        // Alt,Width,height es obligatorio
+        <Image 
+            src="/logo.svg" 
+            alt="Logo CashTracker" 
+            className=" w-full"
+            width={0} 
+            height={0} 
+            priority
+        /> 
 
     )
 }
