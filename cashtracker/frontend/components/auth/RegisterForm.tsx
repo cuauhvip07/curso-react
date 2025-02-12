@@ -1,10 +1,13 @@
 "use client"
 
+import { register } from "@/actions/create-account-action"
+
 export default function registerForm() {
     return (
         <form
             className="mt-14 space-y-5"
             noValidate
+            action={register} // Llamada al server action
         >
             <div className="flex flex-col gap-2">
                 <label
