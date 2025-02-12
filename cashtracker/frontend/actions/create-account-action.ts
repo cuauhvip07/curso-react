@@ -10,6 +10,10 @@ export async function register(formData : FormData){
         password_confirmation: formData.get('password_confirmation'),
     }
 
-    console.log(registerData)
+    // Validar
+
+    
+
+    // Registrar el usuario
 
 }
