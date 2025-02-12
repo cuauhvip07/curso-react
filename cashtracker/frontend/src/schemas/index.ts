@@ -9,7 +9,7 @@ export const registerSchema = z.object({
     password: z.string()
         .min(8, { message: 'El password es muy corto, minimo 8 caracteres' }),
     password_confirmation: z.string(),
-}).refine((data) => data.password === data.password_confirmation,{
-    message:'Las contraseñas no son iguales',
-    path:['password_confirmation']
+}).refine((data) => data.password === data.password_confirmation, {
+    message: 'Las contraseñas no son iguales',
+    path: ['password_confirmation']
 })
