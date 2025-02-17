@@ -1,9 +1,10 @@
 "use server"
 
-import { registerSchema } from "@/src/schemas"
+import { registerSchema, SuccessSchema } from "@/src/schemas"
 
 type ActionStateType = {
-    errors: string[]
+    errors: string[],
+    success: string
 }
 
 // formData -> Recupera los datos del formulario
@@ -25,7 +26,8 @@ export async function register(prevState: ActionStateType,formData : FormData){
     if(!register.success){
         const errors = register.error.errors.map(error => error.message) // Obetener los errores
         return{
-            errors
+            errors,
+            success: prevState.success
         }
     }
 
@@ -45,10 +47,12 @@ export async function register(prevState: ActionStateType,formData : FormData){
         })
     })
 
-    const json = await req.json()
-    console.log(json)
+    const json = await req.json() // Retorna el mensaje del back 
+    const success = SuccessSchema.parse(json)
+
 
     return {
-        errors:[]
+        errors:prevState.errors,
+        success : success 
     }
 }
