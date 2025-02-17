@@ -1,10 +1,13 @@
 "use server"
 
 import { registerSchema } from "@/src/schemas"
-import { error } from "console"
+
+type ActionStateType = {
+    errors: string[]
+}
 
 // formData -> Recupera los datos del formulario
-export async function register(formData : FormData){
+export async function register(prevState: ActionStateType,formData : FormData){
 
     const registerData = {
         email: formData.get('email'),
@@ -18,9 +21,12 @@ export async function register(formData : FormData){
     const register = registerSchema.safeParse(registerData)
     
     // console.log(register)
-    const errors = register.error?.errors.map(error => error.message) // Obetener los errores
+    
     if(!register.success){
-        return
+        const errors = register.error.errors.map(error => error.message) // Obetener los errores
+        return{
+            errors
+        }
     }
 
     // Registrar el usuario
@@ -42,4 +48,7 @@ export async function register(formData : FormData){
     const json = await req.json()
     console.log(json)
 
+    return {
+        errors:[]
+    }
 }
