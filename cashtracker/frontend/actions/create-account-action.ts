@@ -1,6 +1,6 @@
 "use server"
 
-import { registerSchema, SuccessSchema } from "@/src/schemas"
+import { ErrorResponseSchema, registerSchema, SuccessSchema } from "@/src/schemas"
 
 type ActionStateType = {
     errors: string[],
@@ -27,7 +27,7 @@ export async function register(prevState: ActionStateType,formData : FormData){
         const errors = register.error.errors.map(error => error.message) // Obetener los errores
         return{
             errors,
-            success: prevState.success
+            success: ''
         }
     }
 
@@ -48,11 +48,22 @@ export async function register(prevState: ActionStateType,formData : FormData){
     })
 
     const json = await req.json() // Retorna el mensaje del back 
+
+    // Error en caso de duplicidad de cuentas
+    if(req.status === 409){
+        const error = ErrorResponseSchema.parse(json)
+        return{
+            success: prevState.success,
+            errors:[error.error] // En array por que nos regresa ub objeto y estamos iterando los arreglos
+        }
+    }
+
+    
     const success = SuccessSchema.parse(json)
 
 
     return {
-        errors:prevState.errors,
+        errors:[],
         success : success 
     }
 }
