@@ -29,7 +29,12 @@ export default function registerForm() {
             noValidate
             action={dispatch} // Llamada al server action
         >
-            {state.errors.map(error => <ErrorMessage>{error}</ErrorMessage>)}
+            {state.errors.map(error => 
+            <ErrorMessage
+                key={error}
+            >
+                {error}
+            </ErrorMessage>)}
 
             {state.success && <SuccessMessage>{state.success}</SuccessMessage>}
 
