@@ -3,14 +3,23 @@
 import { confirmAccount } from '@/actions/confirm-account-action'
 import { PinInput, PinInputField } from '@chakra-ui/pin-input'
 
-import { useActionState, useState } from 'react'
+import { startTransition, useActionState, useEffect, useState } from 'react'
 
 export default function ConfirmAccountForm() {
 
+  const [isComplete, setIsComplete] = useState(false)
+
+
+
   const [token, setToken] = useState("")
 
-  const [state,formAction,isPending] = useActionState(confirmAccount,{
-    errors:[]
+  // .bind -> Genera una nueva funcion y en lugar de tener se pasa el confirmAccountWithToken al useActionState
+  // const [state,formAction,isPending] = useActionState(confirmAccount,{
+  // .bind -> Se pasan dos parametros -> Genera una copia de confirmAccount
+  const confirmAccountWithToken = confirmAccount.bind(null, token)
+
+  const [state, formAction, isPending] = useActionState(confirmAccountWithToken, {
+    errors: []
   })
 
   const handleChange = (token: string) => {
@@ -18,8 +27,19 @@ export default function ConfirmAccountForm() {
   }
 
   const handleComplete = () => {
-    formAction()
+    setIsComplete(true)
   }
+
+  // Dispara el server action cuando todo los numeros esten completos
+  useEffect(() => {
+    if (isComplete) {
+
+      startTransition(() => {
+        formAction()
+      })
+    }
+
+  }, [isComplete])
 
   return (
     <div className=' flex justify-center gap-5 my-10'>
