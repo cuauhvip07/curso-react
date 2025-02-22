@@ -2,6 +2,8 @@ import Logo from "@/components/ui/Logo";
 import ToastNotification from "@/components/ui/ToastNotification";
 import Link from "next/link";
 
+// Layout sirve bien para proteger los datos del usuario pero NO para obtenerlos 
+
 export default async function AdminLayout({
     children,
 }: Readonly<{
