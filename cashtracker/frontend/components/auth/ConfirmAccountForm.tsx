@@ -6,6 +6,7 @@ import { PinInput, PinInputField } from '@chakra-ui/pin-input'
 import { startTransition, useActionState, useEffect, useState } from 'react'
 import ErrorMessage from '../ui/ErrorMessage'
 import SuccessMessage from '../ui/SuccessMessage'
+import { toast } from 'react-toastify'
 
 export default function ConfirmAccountForm() {
 
@@ -26,6 +27,7 @@ export default function ConfirmAccountForm() {
   })
 
   const handleChange = (token: string) => {
+    setIsComplete(false)
     setToken(token)
   }
 
@@ -44,9 +46,17 @@ export default function ConfirmAccountForm() {
 
   }, [isComplete])
 
+  useEffect(() => {
+    if(state.errors){
+      state.errors.forEach(error => {
+        toast.error(error)
+      })
+    }
+  },[state])
+
   return (
     <>
-      {state.errors.map(error => <ErrorMessage>{error}</ErrorMessage>)}
+      
       {state.success && <SuccessMessage>{state.success}</SuccessMessage>}
       
       <div className=' flex justify-center gap-5 my-10'>
