@@ -2,6 +2,7 @@
 
 import { authenticate } from "@/actions/authenticate-user-action"
 import { useActionState, useEffect } from "react"
+import { toast } from "react-toastify"
 
 export default function LoginForm() {
 
@@ -10,7 +11,11 @@ export default function LoginForm() {
     })
 
     useEffect(() => {
-        console.log(state)
+        if(state.errors){
+            state.errors.forEach(error => {
+                toast.error(error)
+            })
+        }
     },[state])
 
     return (
