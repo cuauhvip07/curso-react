@@ -4,6 +4,8 @@ import { confirmAccount } from '@/actions/confirm-account-action'
 import { PinInput, PinInputField } from '@chakra-ui/pin-input'
 
 import { startTransition, useActionState, useEffect, useState } from 'react'
+import ErrorMessage from '../ui/ErrorMessage'
+import SuccessMessage from '../ui/SuccessMessage'
 
 export default function ConfirmAccountForm() {
 
@@ -19,7 +21,8 @@ export default function ConfirmAccountForm() {
   const confirmAccountWithToken = confirmAccount.bind(null, token)
 
   const [state, formAction, isPending] = useActionState(confirmAccountWithToken, {
-    errors: []
+    errors: [],
+    success: ''
   })
 
   const handleChange = (token: string) => {
@@ -42,19 +45,27 @@ export default function ConfirmAccountForm() {
   }, [isComplete])
 
   return (
-    <div className=' flex justify-center gap-5 my-10'>
-      <PinInput
-        value={token}
-        onChange={handleChange}
-        onComplete={handleComplete}
-      >
-        <PinInputField className='h-10 w-10 border border-gray-300 placeholder-white shadow rounded-lg text-center' />
-        <PinInputField className='h-10 w-10 border border-gray-300 placeholder-white shadow rounded-lg text-center' />
-        <PinInputField className='h-10 w-10 border border-gray-300 placeholder-white shadow rounded-lg text-center' />
-        <PinInputField className='h-10 w-10 border border-gray-300 placeholder-white shadow rounded-lg text-center' />
-        <PinInputField className='h-10 w-10 border border-gray-300 placeholder-white shadow rounded-lg text-center' />
-        <PinInputField className='h-10 w-10 border border-gray-300 placeholder-white shadow rounded-lg text-center' />
-      </PinInput>
-    </div>
+    <>
+      {state.errors.map(error => <ErrorMessage>{error}</ErrorMessage>)}
+      {state.success && <SuccessMessage>{state.success}</SuccessMessage>}
+      
+      <div className=' flex justify-center gap-5 my-10'>
+
+
+
+        <PinInput
+          value={token}
+          onChange={handleChange}
+          onComplete={handleComplete}
+        >
+          <PinInputField className='h-10 w-10 border border-gray-300 placeholder-white shadow rounded-lg text-center' />
+          <PinInputField className='h-10 w-10 border border-gray-300 placeholder-white shadow rounded-lg text-center' />
+          <PinInputField className='h-10 w-10 border border-gray-300 placeholder-white shadow rounded-lg text-center' />
+          <PinInputField className='h-10 w-10 border border-gray-300 placeholder-white shadow rounded-lg text-center' />
+          <PinInputField className='h-10 w-10 border border-gray-300 placeholder-white shadow rounded-lg text-center' />
+          <PinInputField className='h-10 w-10 border border-gray-300 placeholder-white shadow rounded-lg text-center' />
+        </PinInput>
+      </div>
+    </>
   )
 }
