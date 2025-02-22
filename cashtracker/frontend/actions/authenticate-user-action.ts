@@ -1,5 +1,6 @@
 "use server"
 
+import { cookies } from "next/headers"
 import { ErrorResponseSchema, LoginSchema } from "@/src/schemas"
 
 type ActionStateType = {
@@ -44,7 +45,14 @@ export async function authenticate(prevState: ActionStateType,formData:FormData)
         }
     }
 
-    console.log(json)
+    // Setear cookies
+
+    (await cookies()).set({
+        name:'CASHTRACKER_TOKEN',
+        value: json,
+        httpOnly: true,
+        path:'/'
+    })
 
     return {
         errors:[]
