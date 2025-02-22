@@ -1,6 +1,6 @@
 "use server"
 
-import { LoginSchema } from "@/src/schemas"
+import { ErrorResponseSchema, LoginSchema } from "@/src/schemas"
 
 type ActionStateType = {
     errors: string[]
@@ -35,7 +35,15 @@ export async function authenticate(prevState: ActionStateType,formData:FormData)
     })
 
     const json = await req.json()
-    console.log(req.ok)
+
+    if(!req.ok){
+        const {error} = ErrorResponseSchema.parse(json)
+        
+        return{
+            errors: [error]
+        }
+    }
+
     console.log(json)
 
     return {
