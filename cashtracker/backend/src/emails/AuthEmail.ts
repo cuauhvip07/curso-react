@@ -52,7 +52,7 @@ export class AuthEmail {
                 html: `
                     <p>Hola: ${user.name}, has solicitado restablecer tu password</p>
                     <p>Visita el siguiente enlace;</p>
-                    <a href="${process.env.FRONTEND_URL}/auth/cnew-password">Restablacer password</a>
+                    <a href="${process.env.FRONTEND_URL}/auth/new-password">Restablacer password</a>
                     <p>en ingresa el código <b>${user.token}</b></p>
                 `
             })

@@ -17,6 +17,10 @@ export default function ForgotPasswordForm() {
                 toast.error(error)
             })
         }
+
+        if(state.success){
+            toast.success(state.success)
+        }
     },[state])
 
     return (
