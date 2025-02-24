@@ -1,5 +1,5 @@
 // Dal -> Data Acces Layer
-
+import "server-only"   // Se importa este server only y ayuda a que no se vaya el codigo hacia el cliente
 import { cache } from "react"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
