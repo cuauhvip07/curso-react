@@ -30,3 +30,9 @@ export const LoginSchema = z.object({
     password: z.string()
         .min(1, { message: 'El Password no puede ir vacio' })
 })
+
+export const UserSchema = z.object({
+    id: z.number(),
+    name: z.string(),
+    email: z.string().email()
+})
