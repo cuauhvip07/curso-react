@@ -6,11 +6,15 @@ import ResetPasswordForm from "./ResetPasswordForm"
 
 export default function PasswordResetHandler() {
 
-    const [isValidToken,setIsValidToken]= useState(false)
+  const [isValidToken, setIsValidToken] = useState(false)
 
   return (
     <>
-        {!isValidToken ? <ValidateTokenForm/> : <ResetPasswordForm/>} 
+      {!isValidToken ?
+        <ValidateTokenForm
+          setIsValidToken={setIsValidToken}
+        /> :
+        <ResetPasswordForm />}
     </>
   )
 }
