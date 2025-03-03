@@ -4,12 +4,14 @@ import { Dispatch, SetStateAction, startTransition, useActionState, useEffect, u
 import { toast } from "react-toastify";
 
 type ValidateTokenFormProps = {
-    setIsValidToken: Dispatch<SetStateAction<boolean>>
+    setIsValidToken: Dispatch<SetStateAction<boolean>>,
+    setToken: Dispatch<SetStateAction<string>>,
+    token: string
 }
 
-export default function ValidateTokenForm({setIsValidToken}: ValidateTokenFormProps) {
+export default function ValidateTokenForm({setIsValidToken,setToken,token}: ValidateTokenFormProps) {
 
-    const [token,setToken] = useState('')
+    
     const [isCompelte,setIsCompelte] = useState(false)
     const validateTokenInput = validateToken.bind(null,token)
     const [state,formAction] = useActionState(validateTokenInput,{
