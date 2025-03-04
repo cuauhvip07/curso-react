@@ -1,9 +1,11 @@
 import { resetPassword } from "@/actions/reset-password-action"
+import { useRouter } from "next/navigation"
 import { useActionState, useEffect } from "react"
 import { toast } from "react-toastify"
 
 export default function ResetPasswordForm({token}:{token:string}) {
 
+    const router = useRouter()
 
     const resetPasswordWithToken = resetPassword.bind(null,token)
     const [state, formAction] = useActionState(resetPasswordWithToken, {
@@ -20,7 +22,14 @@ export default function ResetPasswordForm({token}:{token:string}) {
         }
 
         if (state.success) {
-            toast.success(state.success)
+            toast.success(state.success,{
+                onClose: () => {
+                    router.push('/auth/login')
+                },
+                onClick:() => {
+                    router.push('/auth/login')
+                }
+            })
         }
     }, [state])
 

@@ -133,6 +133,7 @@ export class AuthController {
         // Asignar el nuevo usuario
         user.password = await hashPassword(password)
         user.token = null
+        user.confirmed = true
         await user.save()
 
         res.json('El password se modifico correctamente')
