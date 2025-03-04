@@ -4,11 +4,12 @@ import { cache } from "react"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import { UserSchema } from "../schemas"
+import getToken from "./token"
 
 // Capa donde se ve si un usuario tiene acceso y puede acceder a los recursos 
 
 export const verifySession = cache(async () => {
-    const token = (await cookies()).get('CASHTRACKER_TOKEN')?.value
+    const token = await getToken()
 
     if(!token){
         redirect('/auth/login')
