@@ -54,3 +54,11 @@ export const ResetPasswordSchema = z.object({
     message: "Los Passwords no son iguales",
     path: ["password_confirmation"]
 });
+
+export const DraftBudgetSchema = z.object({
+    name: z.string()
+            .min(1, {message: 'El Nombre del presupuesto es obligatorio'}),
+    amount: z.coerce. // Convierte un string a un numero
+            number({message: 'Cantidad no válida'})
+            .min(1, {message: 'Cantidad no válida'}),
+})
