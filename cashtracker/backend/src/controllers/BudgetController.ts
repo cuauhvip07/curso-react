@@ -30,6 +30,8 @@ export class BudgetController{
             const budget = new Budget(req.body)
             budget.userId = req.user.id
             await budget.save()
+            // Si quieres extarer info del usuario cuando se cree puedes crear una variabel 
+            // const infoUser = awar budget.save()
             res.status(201).json('Presupuesto creado correctamente')
             return
         } catch (error) {

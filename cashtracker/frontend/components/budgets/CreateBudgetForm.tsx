@@ -1,16 +1,32 @@
 "use client"
 
 import { createBudget } from "@/actions/create-budget-action"
-import { useActionState } from "react"
+import { useActionState, useEffect } from "react"
 import ErrorMessage from "../ui/ErrorMessage"
+import { toast } from "react-toastify"
+import { useRouter } from "next/navigation"
 
 export default function CreateBudgetForm() {
 
-    const [state,formAction] = useActionState(createBudget,{
-        errors:[],
-        success:''
-      })
-    
+    const router = useRouter()
+    const [state, formAction] = useActionState(createBudget, {
+        errors: [],
+        success: ''
+    })
+
+    useEffect(() => {
+        if(state.success){
+            toast.success(state.success,{
+                onClose: () => {
+                    router.push('/admin')
+                },
+                onClick: () => {
+                    router.push('/admin')
+                }
+            })
+        }
+    },[state])
+
     return (
         <form
             className="mt-10 space-y-3"
