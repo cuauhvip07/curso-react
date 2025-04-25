@@ -1,12 +1,11 @@
 "use client"
 
 import { register } from "@/actions/create-account-action"
-import { error } from "console"
 import { useActionState, useEffect, useRef } from "react"
 import ErrorMessage from "../ui/ErrorMessage"
 import SuccessMessage from "../ui/SuccessMessage"
 
-export default function registerForm() {
+export default function RegisterForm() {
 
     const ref = useRef<HTMLFormElement>(null)
 

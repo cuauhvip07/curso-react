@@ -18,7 +18,7 @@ export default function ConfirmAccountForm() {
   // .bind -> Se pasan dos parametros -> Genera una copia de confirmAccount
   const confirmAccountWithToken = confirmAccount.bind(null, token)
 
-  const [state, formAction, isPending] = useActionState(confirmAccountWithToken, {
+  const [state, formAction] = useActionState(confirmAccountWithToken, {
     errors: [],
     success: ''
   })
@@ -41,7 +41,7 @@ export default function ConfirmAccountForm() {
       })
     }
 
-  }, [isComplete])
+  }, [isComplete,formAction])
 
   useEffect(() => {
     if (state.errors) {
@@ -57,7 +57,7 @@ export default function ConfirmAccountForm() {
         }
       })
     }
-  }, [state])
+  }, [state,router])
 
   return (
     <>
