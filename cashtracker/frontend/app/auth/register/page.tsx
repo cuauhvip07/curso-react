@@ -1,7 +1,13 @@
+import type {Metadata} from 'next'
 import RegisterForm from "@/components/auth/RegisterForm"
 
+export const metadata : Metadata = {
+    title: 'Cashtracker - Crear Cuenta',
+    description:'Cashtracker - Crear Cuenta'
+}
 
 export default function RegisterPage() {
+
 
     return (
         <>

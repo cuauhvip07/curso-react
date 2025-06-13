@@ -19,6 +19,7 @@ export default function RegisterForm() {
                     placeholder="Email de Registro"
                     className="w-full border border-gray-300 p-3 rounded-lg"
                     name="email"
+                    autoComplete="email"
                 />
             </div>
 
@@ -31,6 +32,7 @@ export default function RegisterForm() {
                     placeholder="Nombre de Registro"
                     className="w-full border border-gray-300 p-3 rounded-lg"
                     name="name"
+                    autoComplete="name"
                 />
             </div>
 
@@ -43,6 +45,7 @@ export default function RegisterForm() {
                     placeholder="Password de Registro"
                     className="w-full border border-gray-300 p-3 rounded-lg"
                     name="password"
+                    autoComplete="new-password"
                 />
             </div>
 
@@ -56,6 +59,7 @@ export default function RegisterForm() {
                     placeholder="Repite Password de Registro"
                     className="w-full border border-gray-300 p-3 rounded-lg"
                     name="password_confirmation"
+                    autoComplete="new-password"
                 />
             </div>
 
