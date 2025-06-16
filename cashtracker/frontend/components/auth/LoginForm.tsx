@@ -19,6 +19,7 @@ export default function LoginForm() {
                         placeholder="Email de Registro"
                         className="w-full border border-gray-300 p-3 rounded-lg"
                         name="email"
+                        autoComplete="email"
                     />
                 </div>
 
@@ -32,6 +33,7 @@ export default function LoginForm() {
                         placeholder="Password de Registro"
                         className="w-full border border-gray-300 p-3 rounded-lg"
                         name="password"
+                        autoComplete="current-password"
                     />
                 </div>
 
