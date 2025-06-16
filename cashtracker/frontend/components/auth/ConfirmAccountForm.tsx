@@ -2,22 +2,30 @@
 
 import { confirmAccount } from '@/actions/confirm-account-action'
 import {PinInput, PinInputField} from '@chakra-ui/pin-input'
-import { useActionState, useState } from 'react'
+import { useActionState, useEffect, useState } from 'react'
 
 export default function ConfirmAccountForm() {
 
+    const[isComplete,setIsComplete] = useState(false)
     const [token,setToken] = useState("")
-    const [state,formAction,pending] = useActionState(confirmAccount,{
+
+    const confirmAccountWithToken = confirmAccount.bind(null,token)
+    const [state,formAction,pending] = useActionState(confirmAccountWithToken,{
         errors:[]
     })
 
+    useEffect(() => {
+        if(isComplete){
+            formAction()
+        }
+    },[isComplete])
+
     const handleChange = (token:string) => {
         setToken(token)
-        console.log(token)
     }
 
     const handleComplete = () => {
-        formAction()
+        setIsComplete(true)
     }
 
   return (
