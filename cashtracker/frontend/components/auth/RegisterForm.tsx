@@ -1,7 +1,8 @@
 "use client"
 
 import { register } from "@/actions/create-account-action"
-import { useActionState } from "react"
+import { useActionState, useEffect, useState } from "react"
+import ErrorMessage from "../iu/ErrorMessage"
 
 
 
@@ -11,7 +12,18 @@ export default function RegisterForm() {
         errors:[]
     })
 
-    console.log(state)
+    const [showErrors,setShowErrors] = useState(false)
+
+    useEffect(() => {
+        if(state.errors.length > 0 ){
+            setShowErrors(true)
+            const timeout = setTimeout(() => {
+                setShowErrors(false)
+            },5000)
+
+            return () => clearTimeout(timeout)
+        }
+    },[state.errors])
 
     return (
         <form
@@ -19,6 +31,9 @@ export default function RegisterForm() {
             noValidate
             action={formAction}
         >
+
+            {showErrors &&
+            state.errors.map((error,i) => <ErrorMessage key={i}>{error}</ErrorMessage>)}
             <div className="flex flex-col gap-2">
                 <label
                     className="font-bold text-2xl"
