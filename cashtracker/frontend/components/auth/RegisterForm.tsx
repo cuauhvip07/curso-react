@@ -37,7 +37,7 @@ export default function RegisterForm() {
             {
                 showMessages && (
                     <>
-                        {state.errors.map((error,i) => <ErrorMessage key={i}>{state.errors}</ErrorMessage>)}
+                        {state.errors.map((error,i) => <ErrorMessage key={i}>{error}</ErrorMessage>)}
 
                         {state.success && (
                             <SuccessMessage>{state.success}</SuccessMessage>
