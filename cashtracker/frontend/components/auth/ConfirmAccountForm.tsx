@@ -2,10 +2,10 @@
 
 import { confirmAccount } from '@/actions/confirm-account-action'
 import { PinInput, PinInputField } from '@chakra-ui/pin-input'
-import { start } from 'node:repl'
 import { startTransition, useActionState, useEffect, useState } from 'react'
 import ErrorMessage from '../iu/ErrorMessage'
 import SuccessMessage from '../iu/SuccessMessage'
+import { toast } from 'react-toastify'
 
 export default function ConfirmAccountForm() {
 
@@ -39,15 +39,27 @@ export default function ConfirmAccountForm() {
 
 
     useEffect(() => {
-        if (state.errors.length > 0 || state.success) {
-            setShowMessages(true)
-            const timeout = setTimeout(() => {
-                setShowMessages(false)
-            }, 5000)
+        if (state.errors.length === 0 && !state.success) return;
 
-            return () => clearTimeout(timeout)
+        const timeout = setTimeout(() => {
+            setShowMessages(false);
+        }, 5000);
+
+        setShowMessages(true);
+
+        if (state.errors.length > 0) {
+            state.errors.forEach(error => {
+                toast.error(error, { draggable: true });
+            });
         }
-    }, [state.errors, state.success])
+
+        if (state.success) {
+            toast.success(state.success, { draggable: true });
+        }
+
+        return () => clearTimeout(timeout);
+    }, [state.errors, state.success]);
+
 
     return (
         <>
