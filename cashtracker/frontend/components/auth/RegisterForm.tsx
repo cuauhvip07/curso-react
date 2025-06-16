@@ -37,7 +37,7 @@ export default function RegisterForm() {
             {
                 showMessages && (
                     <>
-                        {state.errors.map((error,i) => <ErrorMessage key={i}>{error}</ErrorMessage>)}
+                        {state.errors.map((error, i) => <ErrorMessage key={i}>{error}</ErrorMessage>)}
 
                         {state.success && (
                             <SuccessMessage>{state.success}</SuccessMessage>
@@ -101,11 +101,20 @@ export default function RegisterForm() {
                 />
             </div>
 
-            <input
+            <button
                 type="submit"
-                value='Registrarme'
                 className="bg-purple-950 hover:bg-purple-800 w-full p-3 rounded-lg text-white font-black  text-xl cursor-pointer block"
-            />
+                disabled={pending}
+            >
+                {pending ? (
+                    <div className="flex items-center justify-center gap-2">
+                        <span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                        Cargando...
+                    </div>
+                ) : (
+                    "Registrarme"
+                )}
+            </button>
         </form>
     )
 }
