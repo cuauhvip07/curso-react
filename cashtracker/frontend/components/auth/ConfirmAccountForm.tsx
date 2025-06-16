@@ -6,8 +6,11 @@ import { startTransition, useActionState, useEffect, useState } from 'react'
 import ErrorMessage from '../iu/ErrorMessage'
 import SuccessMessage from '../iu/SuccessMessage'
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
 export default function ConfirmAccountForm() {
+
+    const router = useRouter()
 
     const [isComplete, setIsComplete] = useState(false)
     const [token, setToken] = useState("")
@@ -18,6 +21,8 @@ export default function ConfirmAccountForm() {
         errors: [],
         success: ''
     })
+
+    
 
 
     useEffect(() => {
@@ -43,6 +48,9 @@ export default function ConfirmAccountForm() {
 
         const timeout = setTimeout(() => {
             setShowMessages(false);
+            if(state.success){
+                router.push('/auth/login');
+            }
         }, 5000);
 
         setShowMessages(true);
@@ -54,7 +62,7 @@ export default function ConfirmAccountForm() {
         }
 
         if (state.success) {
-            toast.success(state.success, { draggable: true });
+            toast.success(state.success, { draggable: true, autoClose: 4000 });
         }
 
         return () => clearTimeout(timeout);
