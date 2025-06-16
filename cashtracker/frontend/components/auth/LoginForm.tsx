@@ -1,10 +1,47 @@
 "use client"
+import { authenticate } from "@/actions/authenticate-user-action"
+import { useActionState, useEffect, useState } from "react"
+import { toast } from "react-toastify"
+import ErrorMessage from "../iu/ErrorMessage"
 
 export default function LoginForm() {
 
+    const [showMessages, setShowMessages] = useState(false)
+
+    const [state, formAction, pending] = useActionState(authenticate, {
+        errors: []
+    })
+
+    useEffect(() => {
+        if (state.errors.length === 0) return;
+
+        const timeout = setTimeout(() => {
+            setShowMessages(false);
+        }, 5000);
+
+        setShowMessages(true);
+
+        if (state.errors.length > 0) {
+            state.errors.forEach(error => {
+                toast.error(error, { draggable: true });
+            });
+        }
+
+
+        return () => clearTimeout(timeout);
+    }, [state.errors]);
+
     return (
         <>
+
+            {showMessages && (
+                <>
+                {state.errors.map(error => <ErrorMessage>{error}</ErrorMessage>)}
+                </>
+            )}
+
             <form
+                action={formAction}
                 className="mt-14 space-y-5"
                 noValidate
             >
