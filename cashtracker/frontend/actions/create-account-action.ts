@@ -11,11 +11,16 @@ export async function register(formData: FormData){
         password_confirmation:formData.get('password_confirmation')
     }
 
+    // Validar
+
     const register = RegisterSchema.safeParse(registerData)
     
     const errors = register.error?.errors.map(error => error.message)
 
     console.log(errors)
     console.log(register)
+
+    // Registar 
+    const url = `${process.env.API_URL}/auth/create-account`
 
 }
