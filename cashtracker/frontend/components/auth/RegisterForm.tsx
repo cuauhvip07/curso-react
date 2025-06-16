@@ -11,7 +11,7 @@ export default function RegisterForm() {
 
     const [state, formAction, pending] = useActionState(register, {
         errors: [],
-        seccess: ''
+        success: ''
     })
 
     const [showMessages, setShowMessages] = useState(false)

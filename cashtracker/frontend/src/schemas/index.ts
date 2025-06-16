@@ -1,3 +1,4 @@
+import { error } from 'console'
 import { z } from 'zod'
 
 export const RegisterSchema = z.object({
@@ -10,4 +11,8 @@ export const RegisterSchema = z.object({
     path:['password_confirmation']
 })
 
-export const SuccessSchema = z.string().min(1,{message:'Valor no valido'})
+export const SuccessSchema = z.string()
+
+export const ErrorResponseSchema = z.object({
+    error:z.string()
+})
