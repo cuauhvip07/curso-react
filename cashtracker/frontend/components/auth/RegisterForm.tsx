@@ -3,27 +3,29 @@
 import { register } from "@/actions/create-account-action"
 import { useActionState, useEffect, useState } from "react"
 import ErrorMessage from "../iu/ErrorMessage"
+import SuccessMessage from "../iu/SuccessMessage"
 
 
 
 export default function RegisterForm() {
 
-    const [state,formAction,pending] = useActionState(register,{
-        errors:[]
+    const [state, formAction, pending] = useActionState(register, {
+        errors: [],
+        seccess: ''
     })
 
-    const [showErrors,setShowErrors] = useState(false)
+    const [showMessages, setShowMessages] = useState(false)
 
     useEffect(() => {
-        if(state.errors.length > 0 ){
-            setShowErrors(true)
+        if (state.errors.length > 0 || state.success) {
+            setShowMessages(true)
             const timeout = setTimeout(() => {
-                setShowErrors(false)
-            },5000)
+                setShowMessages(false)
+            }, 5000)
 
             return () => clearTimeout(timeout)
         }
-    },[state.errors])
+    }, [state.errors, state.success])
 
     return (
         <form
@@ -32,8 +34,18 @@ export default function RegisterForm() {
             action={formAction}
         >
 
-            {showErrors &&
-            state.errors.map((error,i) => <ErrorMessage key={i}>{error}</ErrorMessage>)}
+            {
+                showMessages && (
+                    <>
+                        {state.errors.map((error,i) => <ErrorMessage key={i}>{state.errors}</ErrorMessage>)}
+
+                        {state.success && (
+                            <SuccessMessage>{state.success}</SuccessMessage>
+                        )}
+                    </>
+                )
+            }
+
             <div className="flex flex-col gap-2">
                 <label
                     className="font-bold text-2xl"

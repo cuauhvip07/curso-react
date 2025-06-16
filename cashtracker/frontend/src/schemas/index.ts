@@ -9,3 +9,5 @@ export const RegisterSchema = z.object({
     message:'Los passwords no son iguales',
     path:['password_confirmation']
 })
+
+export const SuccessSchema = z.string().min(1,{message:'Valor no valido'})
