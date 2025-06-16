@@ -36,7 +36,7 @@ export default function LoginForm() {
 
             {showMessages && (
                 <>
-                {state.errors.map(error => <ErrorMessage>{error}</ErrorMessage>)}
+                {state.errors.map((error,i) => <ErrorMessage key={i}>{error}</ErrorMessage>)}
                 </>
             )}
 
