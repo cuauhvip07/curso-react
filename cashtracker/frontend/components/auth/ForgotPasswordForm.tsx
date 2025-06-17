@@ -90,7 +90,7 @@ export default function ForgotPasswordForm() {
                         Cargando...
                     </div>
                 ) : (
-                    "Registrarme"
+                    "Enviar"
                 )}
             </button>
         </form>

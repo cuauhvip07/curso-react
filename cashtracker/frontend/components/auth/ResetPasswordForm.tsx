@@ -3,12 +3,15 @@ import { useActionState, useEffect, useState } from "react"
 import { toast } from "react-toastify";
 import ErrorMessage from "../iu/ErrorMessage";
 import SuccessMessage from "../iu/SuccessMessage";
+import { useRouter } from "next/navigation";
 
-export default function ResetPasswordForm({token}: {token:string}) {
+export default function ResetPasswordForm({ token }: { token: string }) {
+
+    const router = useRouter()
 
     const [showMessages, setShowMessages] = useState(false)
 
-    const resetPasswordWithToken = resetPassword.bind(null,token)
+    const resetPasswordWithToken = resetPassword.bind(null, token)
     const [state, formAction, pending] = useActionState(resetPasswordWithToken, {
         errors: [],
         success: ''
@@ -19,13 +22,17 @@ export default function ResetPasswordForm({token}: {token:string}) {
 
         const timeout = setTimeout(() => {
             setShowMessages(false);
+            router.push('/auth/login')
         }, 5000);
 
         setShowMessages(true);
 
 
         if (state.success) {
-            toast.success(state.success, { draggable: true, autoClose: 4000 });
+            toast.success(state.success, {
+                draggable: true,
+                autoClose: 4000,
+            });
         }
 
         return () => clearTimeout(timeout);
@@ -93,7 +100,7 @@ export default function ResetPasswordForm({token}: {token:string}) {
                         Validando...
                     </div>
                 ) : (
-                    "Registrarme"
+                    "Actualizar"
                 )}
             </button>
         </form>

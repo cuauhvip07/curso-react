@@ -85,7 +85,7 @@ export default function LoginForm() {
                             Cargando...
                         </div>
                     ) : (
-                        "Registrarme"
+                        "Iniciar Sesión"
                     )}
                 </button>
             </form>

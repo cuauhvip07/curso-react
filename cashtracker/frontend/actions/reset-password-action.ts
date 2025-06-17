@@ -1,6 +1,6 @@
 "use server"
 
-import { ResetPasswordSchema } from "@/src/schemas"
+import { ErrorResponseSchema, ResetPasswordSchema, SuccessSchema } from "@/src/schemas"
 
 type ActionStateType = {
     errors:string[],
@@ -8,8 +8,6 @@ type ActionStateType = {
 }
 
 export async function resetPassword(token:string,prevState:ActionStateType, formData:FormData){
-
-    console.log(token)
     
     const resetPasswordInput = {
         password: formData.get('password'),
@@ -26,8 +24,32 @@ export async function resetPassword(token:string,prevState:ActionStateType, form
         }
     }
 
+    const url = `${process.env.API_URL}/auth/reset-password/${token}`
+    const req = await fetch(url , {
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+            password:resetPassword.data.password
+        })
+    })
+
+    const json = await req.json()
+    
+    if(!req.ok){
+
+        const error = ErrorResponseSchema.parse(json)
+        return {
+            errors:[error.error],
+            success:''
+        }
+    }
+
+    const success = SuccessSchema.parse(json)
+
     return {
         errors:[],
-        success:''
+        success
     }
 }
