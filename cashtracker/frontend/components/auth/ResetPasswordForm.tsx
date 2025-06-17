@@ -4,11 +4,12 @@ import { toast } from "react-toastify";
 import ErrorMessage from "../iu/ErrorMessage";
 import SuccessMessage from "../iu/SuccessMessage";
 
-export default function ResetPasswordForm() {
+export default function ResetPasswordForm({token}: {token:string}) {
 
     const [showMessages, setShowMessages] = useState(false)
 
-    const [state, formAction, pending] = useActionState(resetPassword, {
+    const resetPasswordWithToken = resetPassword.bind(null,token)
+    const [state, formAction, pending] = useActionState(resetPasswordWithToken, {
         errors: [],
         success: ''
     })
