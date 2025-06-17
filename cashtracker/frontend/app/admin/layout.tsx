@@ -1,3 +1,4 @@
+import AdminMenu from "@/components/admin/AdminMenu";
 import Logo from "@/components/iu/Logo";
 import ToastNotification from "@/components/iu/ToastNotification";
 import { verifySession } from "@/src/auth/dal";
@@ -9,7 +10,7 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }>) {
 
-  await verifySession()
+  const {user} = await verifySession()
 
   return (
     <>
@@ -20,6 +21,11 @@ export default async function AdminLayout({
                 <Logo />
             </Link>
           </div>
+
+          <AdminMenu
+            user={user}
+          />
+
         </div>
       </header>
       <section className='max-w-5xl mx-auto mt-20 p-3 py-10'>
