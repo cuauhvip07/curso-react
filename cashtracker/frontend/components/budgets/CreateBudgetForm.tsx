@@ -3,28 +3,37 @@
 import { createBudget } from "@/actions/create-budget-action"
 import { useActionState, useEffect, useState } from "react"
 import ErrorMessage from "../iu/ErrorMessage"
+import SuccessMessage from "../iu/SuccessMessage"
+import { toast } from "react-toastify"
+import { useRouter } from "next/navigation"
 
 export default function CreateBudgetForm() {
+
+    const router = useRouter()
 
     const [state, formAction, pending] = useActionState(createBudget, {
         errors: [],
         success: ''
     })
 
-    const [showMessage, setShowMessage] = useState(false)
+    const [showMessages, setShowMessages] = useState(false)
 
     useEffect(() => {
-        if (state.errors.length > 0) {
-            setShowMessage(true)
-            const timeout = setTimeout(() => {
-                setShowMessage(false)
-            }, 5000)
+        if (state.errors.length === 0 && !state.success) return;
 
-            return () => clearTimeout(timeout)
+        const timeout = setTimeout(() => {
+            setShowMessages(false);
+            router.push('/admin')
+        }, 5000);
+
+        setShowMessages(true);
+
+        if (state.success) {
+            toast.success(state.success, { draggable: true })
         }
 
-
-    }, [state.errors])
+        return () => clearTimeout(timeout);
+    }, [state])
 
     return (
         <form
@@ -34,8 +43,14 @@ export default function CreateBudgetForm() {
         >
 
             {
-                showMessage &&
-                state.errors.map((error,i) => <ErrorMessage key={i}>{error}</ErrorMessage>)
+                showMessages && (
+                    <>
+                        {state.errors.map((error, i) => <ErrorMessage key={i}>{error}</ErrorMessage>)}
+                    </>
+                )
+
+
+
             }
 
             <div className="space-y-3">
