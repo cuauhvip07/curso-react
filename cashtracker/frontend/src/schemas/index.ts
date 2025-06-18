@@ -37,14 +37,22 @@ export type User = z.infer<typeof UserSchema>
 
 export const ForgotPasswordSchema = z.object({
     email: z.string()
-    .min(1, { message: 'El Email es Obligatorio' })
-    .email({ message: 'Email no válido' }),
+        .min(1, { message: 'El Email es Obligatorio' })
+        .email({ message: 'Email no válido' }),
 })
 
 export const ResetPasswordSchema = z.object({
-    password:z.string().min(8,{message:'El password debe de ser al menos ocho caracteres'}),
-    password_confirmation:z.string()
-}).refine(value => value.password === value.password_confirmation,{
-    message:'Los password no son iguales',
-    path:['password_confirmation']
+    password: z.string().min(8, { message: 'El password debe de ser al menos ocho caracteres' }),
+    password_confirmation: z.string()
+}).refine(value => value.password === value.password_confirmation, {
+    message: 'Los password no son iguales',
+    path: ['password_confirmation']
+})
+
+export const DraftBudgetSchema = z.object({
+    name: z.string()
+        .min(1, { message: 'El Nombre del presupuesto es obligatorio' }),
+    amount: z.coerce.
+        number({ message: 'Cantidad no válida' })
+        .min(1, { message: 'Cantidad no válida' }),
 })
