@@ -1,8 +1,27 @@
-export default async function EditBudgetPage({ params }: { params: { id: string }}) {
+import getToken from "@/src/auth/token"
 
-  const {id} = await params
+const getBudgetById = async (budgetId : string) => {
 
-  console.log(id)
+  const url = `${process.env.API_URL}/budgets/${budgetId}`
+
+  const token = await getToken()
+
+  const req = await fetch(url,{
+    headers:{
+      'Authorization':`Bearer ${token}`
+    }
+  })
+
+  const json = await req.json()
+  console.log(json)
+
+}
+
+export default async function EditBudgetPage({ params }: { params: { id: string } }) {
+
+  const { id } = await params
+
+  await getBudgetById(id)
 
   return (
     <div>
