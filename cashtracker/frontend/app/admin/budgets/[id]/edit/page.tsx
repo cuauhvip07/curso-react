@@ -1,4 +1,5 @@
 import getToken from "@/src/auth/token"
+import { notFound } from "next/navigation"
 
 const getBudgetById = async (budgetId : string) => {
 
@@ -13,7 +14,12 @@ const getBudgetById = async (budgetId : string) => {
   })
 
   const json = await req.json()
-  console.log(json)
+  
+  if(!req.ok){
+    notFound()
+  }
+
+  return json
 
 }
 
