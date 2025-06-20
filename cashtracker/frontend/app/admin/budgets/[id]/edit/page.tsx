@@ -1,8 +1,12 @@
+export default async function EditBudgetPage({ params }: { params: { id: string }}) {
 
-export default function EditBudgetPage() {
+  const {id} = await params
+
+  console.log(id)
+
   return (
     <div>
-      EditBudgetPage
+      EditBudgetPage:
     </div>
-  )
+  );
 }
