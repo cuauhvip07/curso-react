@@ -2,8 +2,10 @@
 
 import { Budget } from "@/src/schemas";
 import BudgetForm from "./BudgetForm";
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { editBudget } from "@/actions/edit-budget-action";
+import ErrorMessage from "../iu/ErrorMessage";
+import SuccessMessage from "../iu/SuccessMessage";
 
 export default function EditBudgetForm({budget} : {budget:Budget}) {
 
@@ -13,6 +15,17 @@ export default function EditBudgetForm({budget} : {budget:Budget}) {
         errors:[],
         success:''
     })
+    const [showMessages,setShowMessages] = useState(false)
+
+    useEffect(() => {
+        if(state.errors.length === 0 && !state.success) return
+
+            setShowMessages(true)
+            const time = setTimeout(() => {
+                setShowMessages(false)    
+            },5000)
+        
+    },[state])
 
     return (
         <form
@@ -21,13 +34,20 @@ export default function EditBudgetForm({budget} : {budget:Budget}) {
             action={formAction}
         >
 
-            {/* {
+            {
                 showMessages && (
                     <>
                         {state.errors.map((error, i) => <ErrorMessage key={i}>{error}</ErrorMessage>)}
+
+                        {state.success && (
+                            <>
+                                <SuccessMessage>{state.success}</SuccessMessage>
+                            </>
+                        )}
+
                     </>
                 )
-            } */}
+            }
 
             <BudgetForm 
                 budget={budget}
