@@ -2,13 +2,23 @@
 
 import { Budget } from "@/src/schemas";
 import BudgetForm from "./BudgetForm";
+import { useActionState } from "react";
+import { editBudget } from "@/actions/edit-budget-action";
 
 export default function EditBudgetForm({budget} : {budget:Budget}) {
+
+
+    const editBudgetWithId = editBudget.bind(null,budget.id)
+    const [state,formAction,pending] = useActionState(editBudgetWithId,{
+        errors:[],
+        success:''
+    })
+
     return (
         <form
             className="mt-10 space-y-3"
             noValidate
-            // action={formAction}
+            action={formAction}
         >
 
             {/* {
@@ -23,10 +33,10 @@ export default function EditBudgetForm({budget} : {budget:Budget}) {
                 budget={budget}
             />
 
-            {/* <button
+            <button
                 type="submit"
                 className="bg-amber-500 w-full p-3 text-white uppercase font-bold hover:bg-amber-600 cursor-pointer transition-colors"
-                // disabled={pending}
+                disabled={pending}
             >
                 {pending ? (
                     <div className="flex items-center justify-center gap-2">
@@ -34,11 +44,9 @@ export default function EditBudgetForm({budget} : {budget:Budget}) {
                         Cargando...
                     </div>
                 ) : (
-                    "Crear"
+                    "Guardar Cambios"
                 )}
-            </button> */}
-
-            <button type="submit">hola</button>
+            </button>
         </form>
     )
 }
