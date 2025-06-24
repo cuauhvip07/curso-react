@@ -2,10 +2,11 @@ import EditBudgetForm from "@/components/budgets/EditBudgetForm"
 import getToken from "@/src/auth/token"
 import { BudgetAPIResponseSchema } from "@/src/schemas"
 import { Metadata } from "next"
+import {cache} from 'react'
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-const getBudgetById = async (budgetId: string) => {
+const getBudgetById = cache(async(budgetId: string) => {
 
   const url = `${process.env.API_URL}/budgets/${budgetId}`
 
@@ -27,14 +28,14 @@ const getBudgetById = async (budgetId: string) => {
 
   return budget
 
-}
+})
+
 // Metadata de forma dinamica - generateMetadata ese es el nombre por default que lo identifica next
 export async function generateMetadata({params} : {params:{id:string}}): Promise<Metadata> {
 
   const {id} = await params
 
   const budget = await getBudgetById(id)
-  console.log(budget)
 
   return {
     title:`Cashtracker - ${budget.name}`,
