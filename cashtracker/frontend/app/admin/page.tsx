@@ -1,4 +1,5 @@
 import BudgetMenu from "@/components/budgets/BudgetMenu";
+import DeleteBudgetModal from "@/components/budgets/DeleteBudgetModal";
 import getToken from "@/src/auth/token";
 import { BudgetsAPIResponseSchema } from "@/src/schemas";
 import { formatCurrency, formatDate } from "@/src/utils";
@@ -85,6 +86,7 @@ export default async function AdminPage() {
                             </li>
                         ))}
                     </ul>
+                    <DeleteBudgetModal/>
                 </>
             ) : (
                 <>
