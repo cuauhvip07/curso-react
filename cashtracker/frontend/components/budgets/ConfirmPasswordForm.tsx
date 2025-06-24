@@ -4,6 +4,7 @@ import { DialogTitle } from "@headlessui/react"
 import { useActionState, useEffect, useState } from "react"
 import { deleteBudget } from "@/actions/delete-budget-action"
 import ErrorMessage from "../iu/ErrorMessage"
+import { toast } from "react-toastify"
 
 export default function ConfirmPasswordForm() {
     const pathname = usePathname()
@@ -22,11 +23,12 @@ export default function ConfirmPasswordForm() {
 
     const deleteBudgetWithPassword = deleteBudget.bind(null, budgetId)
     const [state, formAction, pending] = useActionState(deleteBudgetWithPassword, {
-        errors: []
+        errors: [],
+        success:''
     })
 
     useEffect(() => {
-        if (state.errors.length === 0) return
+        if (state.errors.length === 0 && !state.success) return
 
         setShowMessage(true)
 
@@ -34,7 +36,14 @@ export default function ConfirmPasswordForm() {
             setShowMessage(false)
         }, 3000)
 
+        if(state.success){
+            toast.success(state.success,{draggable:true})
+            closeModal()
+        }
+
         return () => clearTimeout(timeOut)
+
+        
 
     }, [state])
 
@@ -91,7 +100,7 @@ export default function ConfirmPasswordForm() {
                             "Eliminar Presupuesto"
                         )}
                     </button>
-                    
+
                     <button
                         className="bg-amber-500 hover:bg-amber-600 w-full p-3 rounded-lg text-white font-black cursor-pointer transition-colors"
                         onClick={closeModal}

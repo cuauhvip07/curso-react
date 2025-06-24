@@ -24,13 +24,13 @@ export default function CreateBudgetForm() {
 
         const timeout = setTimeout(() => {
             setShowMessages(false);
-            router.push('/admin')
         }, 5000);
 
         setShowMessages(true);
 
         if (state.success) {
             toast.success(state.success, { draggable: true })
+            router.push('/admin')
         }
 
         return () => clearTimeout(timeout);
@@ -51,7 +51,7 @@ export default function CreateBudgetForm() {
                 )
             }
 
-            <BudgetForm/>
+            <BudgetForm />
 
             <button
                 type="submit"

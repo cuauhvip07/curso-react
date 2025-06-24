@@ -1,10 +1,12 @@
 "use server"
 
 import getToken from "@/src/auth/token"
-import { Budget, ErrorResponseSchema, PasswordValidationSchema } from "@/src/schemas"
+import { Budget, ErrorResponseSchema, PasswordValidationSchema, SuccessSchema } from "@/src/schemas"
+import { revalidatePath } from "next/cache"
 
 type ActionStateType = {
-    errors:string[]
+    errors:string[],
+    success:string
 }
 
 export async function deleteBudget (budgetId:Budget['id'], prevState:ActionStateType, formData:FormData) {
@@ -14,7 +16,8 @@ export async function deleteBudget (budgetId:Budget['id'], prevState:ActionState
     if(!currentPassword.success){
         
         return {
-            errors:currentPassword.error.errors.map(error => error.message)
+            errors:currentPassword.error.errors.map(error => error.message),
+            success:''
         }
     }
 
@@ -39,7 +42,8 @@ export async function deleteBudget (budgetId:Budget['id'], prevState:ActionState
         const error = ErrorResponseSchema.parse(checkPasswordJson)
 
         return {
-            errors:[error.error]
+            errors:[error.error],
+            success:''
         }
     }
 
@@ -60,12 +64,17 @@ export async function deleteBudget (budgetId:Budget['id'], prevState:ActionState
         const error = ErrorResponseSchema.parse(deleteBudgetJson)
 
         return {
-            errors:[error.error]
+            errors:[error.error],
+            success:''
         }
     }
 
+    const success = SuccessSchema.parse(deleteBudgetJson)
+
+    revalidatePath('/admin')
 
     return {
-        errors:[]
+        errors:[],
+        success
     }
 }
