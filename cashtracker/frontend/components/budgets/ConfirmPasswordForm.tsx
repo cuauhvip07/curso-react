@@ -1,13 +1,16 @@
 "use client"
 import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import { DialogTitle } from "@headlessui/react"
-import { useActionState } from "react"
+import { useActionState, useEffect, useState } from "react"
 import { deleteBudget } from "@/actions/delete-budget-action"
+import ErrorMessage from "../iu/ErrorMessage"
 
 export default function ConfirmPasswordForm() {
     const pathname = usePathname()
     const router = useRouter()
     const searchParams = useSearchParams()
+
+    const [showMessage, setShowMessage] = useState(false)
 
     const budgetId = +searchParams.get('deleteBudgetId')!
 
@@ -22,6 +25,19 @@ export default function ConfirmPasswordForm() {
         errors:[]
     })
 
+    useEffect(() => {
+        if(state.errors.length === 0 ) return 
+
+        setShowMessage(true)
+
+        const timeOut = setTimeout(() => {
+            setShowMessage(false)
+        },3000)
+
+        return () => clearTimeout(timeOut)
+
+    },[state])
+
     return (
         <>
             <DialogTitle
@@ -34,6 +50,14 @@ export default function ConfirmPasswordForm() {
                 <span className="text-amber-500">eliminar el presupuesto {''}</span>
             </p>
             <p className='text-gray-600 text-sm'>(Un presupuesto eliminado y sus gastos no se pueden recuperar)</p>
+
+            <>
+                {showMessage && 
+                    state.errors.map((error,i) => <ErrorMessage key={i}>{error}</ErrorMessage>)
+                }
+            
+            </>
+
             <form
                 className=" mt-14 space-y-5"
                 noValidate
