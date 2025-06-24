@@ -6,10 +6,13 @@ import { useActionState, useEffect, useState } from "react";
 import { editBudget } from "@/actions/edit-budget-action";
 import ErrorMessage from "../iu/ErrorMessage";
 import SuccessMessage from "../iu/SuccessMessage";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function EditBudgetForm({budget} : {budget:Budget}) {
 
 
+    const router = useRouter()
     const editBudgetWithId = editBudget.bind(null,budget.id)
     const [state,formAction,pending] = useActionState(editBudgetWithId,{
         errors:[],
@@ -24,6 +27,13 @@ export default function EditBudgetForm({budget} : {budget:Budget}) {
             const time = setTimeout(() => {
                 setShowMessages(false)    
             },5000)
+
+            if(state.success){
+                toast.success(state.success,{
+                    draggable:true
+                })
+                router.push('/admin')
+            }
         
     },[state])
 
@@ -38,12 +48,6 @@ export default function EditBudgetForm({budget} : {budget:Budget}) {
                 showMessages && (
                     <>
                         {state.errors.map((error, i) => <ErrorMessage key={i}>{error}</ErrorMessage>)}
-
-                        {state.success && (
-                            <>
-                                <SuccessMessage>{state.success}</SuccessMessage>
-                            </>
-                        )}
 
                     </>
                 )
