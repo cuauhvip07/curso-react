@@ -20,23 +20,23 @@ export default function ConfirmPasswordForm() {
         router.replace(`${pathname}?${hideModal}`)
     }
 
-    const deleteBudgetWithPassword = deleteBudget.bind(null,budgetId)
-    const [state,formAction,pending] = useActionState(deleteBudgetWithPassword,{
-        errors:[]
+    const deleteBudgetWithPassword = deleteBudget.bind(null, budgetId)
+    const [state, formAction, pending] = useActionState(deleteBudgetWithPassword, {
+        errors: []
     })
 
     useEffect(() => {
-        if(state.errors.length === 0 ) return 
+        if (state.errors.length === 0) return
 
         setShowMessage(true)
 
         const timeOut = setTimeout(() => {
             setShowMessage(false)
-        },3000)
+        }, 3000)
 
         return () => clearTimeout(timeOut)
 
-    },[state])
+    }, [state])
 
     return (
         <>
@@ -52,10 +52,10 @@ export default function ConfirmPasswordForm() {
             <p className='text-gray-600 text-sm'>(Un presupuesto eliminado y sus gastos no se pueden recuperar)</p>
 
             <>
-                {showMessage && 
-                    state.errors.map((error,i) => <ErrorMessage key={i}>{error}</ErrorMessage>)
+                {showMessage &&
+                    state.errors.map((error, i) => <ErrorMessage key={i}>{error}</ErrorMessage>)
                 }
-            
+
             </>
 
             <form
@@ -77,11 +77,21 @@ export default function ConfirmPasswordForm() {
                     />
                 </div>
                 <div className="grid grid-cols-2 gap-5">
-                    <input
+                    <button
                         type="submit"
-                        value='Eliminar Presupuesto'
-                        className="bg-purple-950 hover:bg-purple-800 w-full p-3 rounded-lg text-white font-black cursor-pointer transition-colors whitespace-normal"
-                    />
+                        className="bg-purple-950 hover:bg-purple-800 w-full p-3 rounded-lg text-white font-black cursor-pointer block"
+                        disabled={pending}
+                    >
+                        {pending ? (
+                            <div className="flex items-center justify-center gap-2">
+                                <span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                                Validando...
+                            </div>
+                        ) : (
+                            "Eliminar Presupuesto"
+                        )}
+                    </button>
+                    
                     <button
                         className="bg-amber-500 hover:bg-amber-600 w-full p-3 rounded-lg text-white font-black cursor-pointer transition-colors"
                         onClick={closeModal}

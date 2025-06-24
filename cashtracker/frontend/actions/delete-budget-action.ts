@@ -43,6 +43,28 @@ export async function deleteBudget (budgetId:Budget['id'], prevState:ActionState
         }
     }
 
+    // Eliminar presupuesto
+    const deleteBudgetUrl = `${process.env.API_URL}/budgets/${budgetId}`
+
+    const deleteBudgetReq = await fetch(deleteBudgetUrl,{
+        method:'DELETE',
+        headers:{
+            'Authorization':`Bearer ${token}`,
+        }
+    })
+
+    const deleteBudgetJson = await deleteBudgetReq.json()
+
+        if(!deleteBudgetReq.ok){
+
+        const error = ErrorResponseSchema.parse(deleteBudgetJson)
+
+        return {
+            errors:[error.error]
+        }
+    }
+
+
     return {
         errors:[]
     }
