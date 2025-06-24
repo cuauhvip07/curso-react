@@ -14,14 +14,11 @@ export default function DeleteBudgetModal() {
 
     // Obtener los parametro de la url
     const deleteBudgetId = searchParams.get('deleteBudgetId')
-    const budgetId = deleteBudgetId 
     const show = deleteBudgetId ? true : false
 
     // Eliminar los parametros de la URL
     const hideModal = new URLSearchParams(searchParams.toString())
     hideModal.delete('deleteBudgetId')
-
-    console.log(budgetId)
 
     return (
         <>
