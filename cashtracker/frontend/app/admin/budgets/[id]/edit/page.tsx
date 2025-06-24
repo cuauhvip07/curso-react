@@ -1,34 +1,7 @@
 import EditBudgetForm from "@/components/budgets/EditBudgetForm"
-import getToken from "@/src/auth/token"
-import { BudgetAPIResponseSchema } from "@/src/schemas"
+import { getBudgetById } from "@/src/services/budgets"
 import { Metadata } from "next"
-import {cache} from 'react'
 import Link from "next/link"
-import { notFound } from "next/navigation"
-
-const getBudgetById = cache(async(budgetId: string) => {
-
-  const url = `${process.env.API_URL}/budgets/${budgetId}`
-
-  const token = await getToken()
-
-  const req = await fetch(url, {
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  })
-
-  const json = await req.json()
-
-  if (!req.ok) {
-    notFound()
-  }
-
-  const budget = BudgetAPIResponseSchema.parse(json)
-
-  return budget
-
-})
 
 // Metadata de forma dinamica - generateMetadata ese es el nombre por default que lo identifica next
 export async function generateMetadata({params} : {params:{id:string}}): Promise<Metadata> {
