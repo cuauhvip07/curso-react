@@ -20,7 +20,6 @@ export default async function BudgetDetailsPage({ params }: { params: { id: stri
     const { id } = await params
 
     const budget = await getBudgetById(id)
-    console.log(budget)
 
     return (
         <>
