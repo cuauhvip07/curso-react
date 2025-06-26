@@ -1,3 +1,4 @@
+import AddExpenseButton from "@/components/expenses/AddExpenseButton"
 import { getBudgetById } from "@/src/services/budgets"
 import { Metadata } from "next"
 
@@ -28,7 +29,7 @@ export default async function BudgetDetailsPage({ params }: { params: { id: stri
                     <h1 className="font-black text-4xl text-purple-950">{budget.name}</h1>
                     <p className="text-xl font-bold">Administra tus {''} <span className="text-amber-500">gastos</span></p>
                 </div>
-
+                <AddExpenseButton/>
             </div>
         </>
     )
