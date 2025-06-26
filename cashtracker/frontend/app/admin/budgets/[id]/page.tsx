@@ -1,4 +1,5 @@
 import AddExpenseButton from "@/components/expenses/AddExpenseButton"
+import ModalContainer from "@/components/iu/ModalContainer"
 import { getBudgetById } from "@/src/services/budgets"
 import { Metadata } from "next"
 
@@ -31,6 +32,9 @@ export default async function BudgetDetailsPage({ params }: { params: { id: stri
                 </div>
                 <AddExpenseButton/>
             </div>
+
+            <ModalContainer/>
+
         </>
     )
 }
