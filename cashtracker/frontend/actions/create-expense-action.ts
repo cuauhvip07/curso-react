@@ -2,6 +2,7 @@
 
 import getToken from "@/src/auth/token"
 import { DraftExpenseSchema, ErrorResponseSchema, SuccessSchema } from "@/src/schemas"
+import { revalidatePath } from "next/cache"
 
 type ActionStateType = {
     errors: string[],
@@ -52,6 +53,9 @@ export default async function createExpense(budgetId:number,prevState:ActionStat
     }
 
     const success = SuccessSchema.parse(json)
+
+
+    revalidatePath(`/admin/budgets/${budgetId}`)
 
     return{
         errors:[],
