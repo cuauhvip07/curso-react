@@ -23,6 +23,8 @@ export default async function BudgetDetailsPage({ params }: { params: { id: stri
 
     const budget = await getBudgetById(id)
 
+    console.log(budget)
+
     return (
         <>
             <div className='flex justify-between items-center'>
