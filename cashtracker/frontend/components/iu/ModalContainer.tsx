@@ -19,10 +19,13 @@ export default function ModalContainer() {
     const searchParams = useSearchParams()
 
     const showModal = searchParams.get('showModal') // viene como string
+
     const addExpense = searchParams.get('addExpense')
+    const editExpense = searchParams.get('editExpenseId')
 
     const getComponentName = () => {
         if(addExpense) return 'AddExpense'
+        if(editExpense) return 'EditExpense'
     }
 
     const componentName = getComponentName()

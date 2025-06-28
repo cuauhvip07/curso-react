@@ -30,7 +30,7 @@ export default function ExpenseMenu({expenseId}:{expenseId:Expense['id']}) {
                             <button
                                 type='button'
                                 className='block px-3 py-1 text-sm leading-6 text-gray-900'
-                                onClick={() => router.push(location.pathname+`?showModal=true&EditExpenseId=${expenseId}`)}
+                                onClick={() => router.push(location.pathname+`?showModal=true&editExpenseId=${expenseId}`)}
                             >
                                 Editar Gasto
                             </button>
