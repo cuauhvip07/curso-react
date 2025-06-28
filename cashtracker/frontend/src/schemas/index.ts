@@ -72,3 +72,9 @@ export const BudgetAPIResponseSchema = z.object({
 export const BudgetsAPIResponseSchema = z.array(BudgetAPIResponseSchema)
 
 export type Budget = z.infer<typeof BudgetAPIResponseSchema>
+
+
+export const DraftExpenseSchema = z.object({
+    name: z.string().min(1,{message:'El nombre del gasto es obligatorio'}),
+    amount: z.coerce.number().min(1,{message:'Cantidad no valida'})
+})

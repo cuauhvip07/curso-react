@@ -1,19 +1,39 @@
 import { DialogTitle } from "@headlessui/react";
 import ExpenseForm from "./ExpenseForm";
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import createExpense from "@/actions/create-expense-action";
 import { useParams } from "next/navigation";
+import { toast } from "react-toastify";
+import { error } from "console";
+import ErrorMessage from "../iu/ErrorMessage";
 
 export default function AddExpenseForm() {
 
-    const {id} = useParams() // Solo en client components
+    const { id } = useParams() // Solo en client components
+    const [showMessages,setShowMessages] = useState(false)
 
 
-    const createExpenseWithBudgetId = createExpense.bind(null,+id!)
-    const [state,formAction,pending] = useActionState(createExpenseWithBudgetId,{
-        errors:[],
-        success:''
+    const createExpenseWithBudgetId = createExpense.bind(null, +id!)
+    const [state, formAction, pending] = useActionState(createExpenseWithBudgetId, {
+        errors: [],
+        success: ''
     })
+
+    useEffect(() => {
+        if (state.errors.length === 0 && !state.success) return;
+
+        const timeout = setTimeout(() => {
+            setShowMessages(false);
+        }, 5000);
+
+        setShowMessages(true);
+
+        if (state.success) {
+            toast.success(state.success, { draggable: true })
+        }
+
+        return () => clearTimeout(timeout);
+    }, [state])
 
     return (
         <>
@@ -27,6 +47,13 @@ export default function AddExpenseForm() {
             <p className="text-xl font-bold">Llena el formulario y crea un {''}
                 <span className="text-amber-500">gasto</span>
             </p>
+
+            {showMessages && (
+                <>
+                    {state.errors.map((error,i) => <ErrorMessage key={i}>{error}</ErrorMessage>)}
+                </>
+            )}
+
             <form
                 className="bg-gray-100 shadow-lg rounded-lg p-10 mt-10 border"
                 noValidate
