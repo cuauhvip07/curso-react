@@ -7,10 +7,10 @@ import { toast } from "react-toastify";
 import { error } from "console";
 import ErrorMessage from "../iu/ErrorMessage";
 
-export default function AddExpenseForm() {
+export default function AddExpenseForm({closeModal} : {closeModal: () => void}) {
 
     const { id } = useParams() // Solo en client components
-    const [showMessages,setShowMessages] = useState(false)
+    const [showMessages, setShowMessages] = useState(false)
 
 
     const createExpenseWithBudgetId = createExpense.bind(null, +id!)
@@ -30,6 +30,7 @@ export default function AddExpenseForm() {
 
         if (state.success) {
             toast.success(state.success, { draggable: true })
+            closeModal()
         }
 
         return () => clearTimeout(timeout);
@@ -50,7 +51,7 @@ export default function AddExpenseForm() {
 
             {showMessages && (
                 <>
-                    {state.errors.map((error,i) => <ErrorMessage key={i}>{error}</ErrorMessage>)}
+                    {state.errors.map((error, i) => <ErrorMessage key={i}>{error}</ErrorMessage>)}
                 </>
             )}
 
@@ -60,12 +61,24 @@ export default function AddExpenseForm() {
                 action={formAction}
             >
                 <ExpenseForm />
-                <input
+                <button
                     type="submit"
                     className="bg-amber-500 w-full p-3 text-white uppercase font-bold hover:bg-amber-600 cursor-pointer transition-colors"
-                    value='Registrar Gasto'
-                />
+                    disabled={pending}
+                >
+                    {pending ? (
+                        <div className="flex items-center justify-center gap-2">
+                            <span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                            Creando...
+                        </div>
+                    ) : (
+                        "Crear"
+                    )}
+                </button>
             </form>
         </>
     )
 }
+
+
+
